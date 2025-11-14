@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,11 +9,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
-  <h1>Welcome to Project Nebula</h1>
-  <div>
-  <img src="Imagen1.jpg" alt="Banner" width="640" height="360">
+  <aside class="sidebar">
+    <button class="toggler"><span class="material-symbols-rounded">menu</span></button>
+    <h2>Tutorials</h2>
+    <ul>
+      <li><a href="index.html"><span class="material-symbols-rounded">home</span><span class="linklabel">Home</span></a></li>
+      <li><a href="#" onclick="loadPage('tutorials/installubuntuserver.html')"><span class="material-symbols-rounded">install_desktop</span><span class="linklabel">Install Ubuntu Server OS</span></a></li>
+      <li><a href="pagina2.html"><span class="material-symbols-rounded">connect_without_contact</span><span class="linklabel">Página 2</span></a></li>
+      <li><a href="contacto.html"><span class="material-symbols-rounded">contacts_product</span><span class="linklabel">Contacto</span></a></li>
+    </ul>
+  </aside>
+  <main class="main-content" id="main-content">
+    <h1>Welcome to Project Nebula</h1>
+  <div id="Banner">
+  <img src="images/Imagen1.jpg" alt="Banner" width="640" height="360">
   </div>
   <p>
     This project turns a Raspberry Pi 5 into a fully functional NAS and self-hosted server, 
@@ -29,10 +41,17 @@
     <li>Additional tools and services for automation, monitoring, and backups</li>
   </ul>
   <p>Designed for reliability, low power consumption, and easy recovery, this setup provides a compact yet powerful home server solution. It’s ideal for anyone who wants full control over their data, secure connectivity, and a modular infrastructure that can grow with new containers and services over time.</p>
-  <a href="https://www.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_39674662.htm">Image by benzoix on Freepik</a>
-  <a href="https://www.freepik.com/free-photo/two-clouds-yellow-folder_869908.htm">Image by kjpargeter on Freepik</a>
-  <a href="https://www.freepik.com/free-vector/modern-ad-block-concept-with-flat-design_2670693.htm">Image by freepik</a>
-  <a href ="https://www.freepik.com/free-vector/gps-coverage-area-earth-observation-space-communications-idea-orbiting-satellite-navigation-modern-technologies-outer-space-cosmos-universe-vector-isolated-concept-metaphor-illustration_11668712.htm#fromView=search&page=1&position=29&uuid=2fdebb03-8e55-44fc-81a1-ea151b6ce7d7&query=remote+connection">World Wide Pic</a>
+  <div>
+    <h2 id="image-resources">Image Resources</h2>
+      <ul>
+      <li><a href="https://www.freepik.com/free-photo/space-background-realistic-starry-night-cosmos-shining-stars-milky-way-stardust-color-galaxy_39674662.htm">Image by benzoix on Freepik</a><br></li>
+      <li><a href="https://www.freepik.com/free-photo/two-clouds-yellow-folder_869908.htm">Image by kjpargeter on Freepik</a><br></li>
+      <li><a href="https://www.freepik.com/free-vector/modern-ad-block-concept-with-flat-design_2670693.htm">Image by freepik</a><br></li>
+      <li><a href ="https://www.freepik.com/free-vector/gps-coverage-area-earth-observation-space-communications-idea-orbiting-satellite-navigation-modern-technologies-outer-space-cosmos-universe-vector-isolated-concept-metaphor-illustration_11668712.htm#fromView=search&page=1&position=29&uuid=2fdebb03-8e55-44fc-81a1-ea151b6ce7d7&query=remote+connection">World Wide Pic</a><br></li>
+      </ul>
+    </div>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
 
