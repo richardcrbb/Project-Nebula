@@ -77,7 +77,7 @@ h2 {
   color: #EADDCA; 
   padding: 5px;
   position: fixed;
-  transition: transform 3s ease;
+  transition: transform 0.3s ease;
 }
 
 .toggler {
@@ -152,13 +152,13 @@ h2 {
 
 /* Contenido principal */
 .main-content {
-  margin-left: 240px;
+  margin-left: 280px;
   padding: 20px;
   transition: margin-left 0.3s ease;
 }
 
-.sidebar.collapsed ~ .main-content {
-  margin-left: 40px;
+body.sidebar-collapsed .main-content {
+  margin-left: 80px;
 }
 
 /* Responsive: móvil */

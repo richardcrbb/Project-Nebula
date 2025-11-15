@@ -1,24 +1,20 @@
-const sidebar = document.querySelector(".sidebar")
-const sidebarToggler = document.querySelector(".toggler");
+fetch('/components/sidebar.html', { cache: "no-store" })
+  .then(r => r.text())
+  .then(html => {
+    // Insertar HTML del sidebar
+    const sidebarContainer = document.querySelector('#sidebar');
+    sidebarContainer.innerHTML = html;
 
-sidebarToggler.addEventListener("click", () => {
-    sidebar.classList.toggle("collapsed")
-});
+    // AHORA sí existen .toggler y los elementos del sidebar
+    const sidebar = sidebarContainer.querySelector("aside.sidebar");
+    const sidebarToggler = sidebar.querySelector(".toggler");
 
+    // Funcion para escuchar clicks en el boton y agregar o quitar clase collapsed en elementos
+    sidebarToggler.addEventListener("click", () => {
+        sidebar.classList.toggle("collapsed");
+        document.body.classList.toggle("sidebar-collapsed");
+    });
 
-function loadPage(page) {
-      fetch(page)
-        .then(response => response.text())
-        .then(html => {
-          // Convertir el HTML cargado en un documento
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, "text/html");
+    
 
-          // Tomar solo el contenido del <main>
-          const newMain = doc.querySelector("main").innerHTML;
-
-          // Reemplazar el contenido actual del main
-          document.getElementById("main-content").innerHTML = newMain;
-        })
-        .catch(err => console.log('Error cargando la página: ', err));
-    }
+  });
