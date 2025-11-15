@@ -1,4 +1,4 @@
-fetch('/components/sidebar.html', { cache: "no-store" })
+fetch('./components/sidebar.html', { cache: "no-store" })
   .then(r => r.text())
   .then(html => {
     // Insertar HTML del sidebar
