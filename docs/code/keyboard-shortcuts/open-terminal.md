@@ -1,0 +1,1 @@
+Open the terminal using <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>
