@@ -1,0 +1,20 @@
+network:
+  version: 2
+
+  ethernets:
+    eth0:
+      dhcp4: true
+      optional: true
+
+  wifis:
+    wlan0:
+      optional: false
+      access-points:
+        "CHANGE THIS FOR YOUR WIFI ID":
+          password: "CHANGE THIS FOR YOUR WIFIPASSWORD"
+      addresses:
+        - 192.168.0.10/24
+      gateway4: 192.168.0.1
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+
