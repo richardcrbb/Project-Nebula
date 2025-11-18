@@ -107,53 +107,56 @@
     </section>
     <br>
     <section class="partitions">
-      <ol>
-        <li>First thing is to connect your storage device and open a terminal</li>
-        <p id="open-terminal-shortcut"></p>
-        <li>Now identify which drive you are going to partition</li>
-      </ol>
+      <p>First thing is to connect your storage device and open a terminal</p>
+      <p id="open-terminal-shortcut"></p>
+      <p>Now identify which drive you are going to partition</p>
+      <p class="commands" id="comm-lsblk"></p>
+      <p>Let's suppose your device is 'sdx', then execute the following commands (remember to replace x for 
+        your device letter keeping the * in the first command, e.g. 'sdb*'):</p>
+      <pre class="commands" id="comm-gdisk"></pre>
+      <!-- <p class="commands" id="comm-gdisk"></p> -->
+      <p>The first one is to unmount all the partitions that might be mounted, if there is one or any of them not mounted you will
+        receive a warning but don't pay attetion to it, the second one is the package you will use to create the gpt partition
+        table and create the partitions, if you don't have it you can install it using "sudo apt update && sudo apt install 
+        gdisk", now inside of gdisk type the following options:</p>
       <ul>
-        <p class="commands" id="comm-lsblk"></p>
-        <p>Let's suppose your device is 'sdx', then execute the following commands (remember to replace x for 
-          your device letter keeping the * in the first command, e.g. 'sdb*'):</p>
-        <pre class="commands" id="comm-gdisk"></pre>
-        <!-- <p class="commands" id="comm-gdisk"></p> -->
-        <p>The first one is to unmount all the partitions that might be mounted, if there is one or any of them not mounted you will
-          receive a warning but don't pay attetion to it, the second one is the package you will use to create the gpt partition
-           table and create the partitions, if you don't have it you can install it using "sudo apt update && sudo apt install 
-           gdisk", now inside of gdisk type the following options:
-           <li> <kbd>o</kbd> "Letter o"</li>
-           <li>"This option deletes all partitions and creates a new protective MBR. Proceed?</li>
-           <li><kbd>y</kbd></li>
-           <li><kbd>n</kbd></li>
-           <li>"Partition number (1-128, default 1):"</li>
-           <li><kbd>enter</kbd></li>
-           <li>"First sector (34-124735454, default = 2048) or {+-}size{KMGTP}:"</li>
-           <li><kbd>enter</kbd></li>
-           <li>"Last sector (2048-124735454, default = 124733439) or {+-}size{KMGTP}:"</li>
-           <li><kbd>+512M</kbd></li>
-           <li>"Current type is 8300 (Linux filesystem) Hex code or GUID (L to show codes, Enter = 8300):"</li>
-           <li><kbd>ef00</kbd> "zero zero, not letter o"</li>
-           <p>The o option creates the gpt table, the n option creates a new partition, the ef00 hex code creates an EFI system 
-            partition, necessary for boot</p>
-           <p>Now you created the first efi partition, continue to create the root partition:</p>
-           <li><kbd>n</kbd></li>
-           <li><kbd>enter</kbd></li>
-           <li><kbd>enter</kbd></li>
-           <li><kbd>+30G</kbd> "at least 20G for the root partition! or more if you have more space available, a big storage device is recommended"</li>
-           <li><kbd>enter</kbd></li>
-           <p>Now you created the second partition for the OS., continue to create the data partition which is going to take the available space:</p>
-           <li><kbd>n</kbd></li>
-           <li><kbd>enter</kbd></li>
-           <li><kbd>enter</kbd></li>
-           <li><kbd>enter</kbd></li>
-           <li><kbd>enter</kbd></li>
-           <p>You can review the changes that are going to take place with:</p>
-           <li><kbd>p</kbd></li>
-           <li>There will be a table with three partitions you just created, save the changes with:</li>
-           <li><kbd>w</kbd></li>
-           <li><kbd>y</kbd></li>
-        </p>
+        <li> <kbd>o</kbd> "Letter o"</li>
+        <li>"This option deletes all partitions and creates a new protective MBR. Proceed?</li>
+        <li><kbd>y</kbd></li>
+        <li><kbd>n</kbd></li>
+        <li>"Partition number (1-128, default 1):"</li>
+        <li><kbd>enter</kbd></li>
+        <li>"First sector (34-124735454, default = 2048) or {+-}size{KMGTP}:"</li>
+        <li><kbd>enter</kbd></li>
+        <li>"Last sector (2048-124735454, default = 124733439) or {+-}size{KMGTP}:"</li>
+        <li><kbd>+512M</kbd></li>
+        <li>"Current type is 8300 (Linux filesystem) Hex code or GUID (L to show codes, Enter = 8300):"</li>
+        <li><kbd>ef00</kbd> "zero zero, not letter o"</li>
+      </ul>
+      <p>The o option creates the gpt table, the n option creates a new partition, the ef00 hex code creates an EFI system 
+        partition, necessary for boot</p>
+      <p>Now you created the first efi partition, continue to create the root partition:</p>
+      <ul>
+        <li><kbd>n</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>+30G</kbd> "at least 20G for the root partition! or more if you have more space available, a big storage device is recommended"</li>
+        <li><kbd>enter</kbd></li>
+      </ul>
+      <p>Now you created the second partition for the OS., continue to create the data partition which is going to take the available space:</p>
+      <ul>
+        <li><kbd>n</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>enter</kbd></li>
+      </ul>
+      <p>You can review the changes that are going to take place with:</p>
+      <ul>
+        <li><kbd>p</kbd></li>
+        <li>There will be a table with three partitions you just created, save the changes with:</li>
+        <li><kbd>w</kbd></li>
+        <li><kbd>y</kbd></li>
       </ul>
       <p>To review your devices and partitions again:</p>
       <p class="commands" id="comm-lsblk"></p>
