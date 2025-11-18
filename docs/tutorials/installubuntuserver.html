@@ -157,6 +157,15 @@
       </ul>
       <p>To review your devices and partitions again:</p>
       <p class="commands" id="comm-lsblk"></p>
+      <p>Create the filesystems and labels for each partition, use vfat-fat32 filesystem for the partition 1, btrfs 
+        filesystem for partitions 2 and 3, it is very important to label partition 1 as 'system-boot' and partitin 2 
+        as 'writable' so the Raspberry pi firmware can boot properly!!!, the 3rd partition may be label as you want 
+        I suggest 'MyDataDev'.
+      </p>
+      <p>In order to do that install the package btrfs, usually it does not come with ubuntu fresh install.</p>
+      <pre class="commands" id="comm-btrfs"></pre>
+      <p>Create the filesystems:</p>
+      <pre class="commands" id="comm-mkfs"></pre>
       <p>Now download the LTS most recent version of ubuntu server os pre-installed for 
         rpi "Raspberry Pi Generic (64-bit ARM) preinstalled server image" that is in the section 
         "Preinstalled server image" of the following link for the release you chose or...
@@ -187,6 +196,12 @@
       <pre class="commands" id="comm-mount"></pre>
       <p>Now copy the image content inside the rpidev directory</p>
       <pre class="commands" id="comm-cp"></pre>
+      <p>You need to modify three files in order to boot properly</p>
+      <ul>
+        <li>user-data</li>
+        <li>network-config</li>
+        <li>cmdline.txt</li>
+      </ul>
     </section>
   </main>
   <script src="/Project-Nebula/scripts/sidebar-collapseButton.js"></script>
