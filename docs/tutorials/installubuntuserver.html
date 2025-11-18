@@ -172,7 +172,7 @@
       <p>After this you should see the image file without the .xz extension. So load the image to a virtual device call loop 
         as:
       </p>
-      <p class="commands" id="comm-losetup"></p>
+      <pre class="commands" id="comm-losetup"></pre>
       <p>Identify the virtual device that contains your server image. It starts with “loop” followed by a number,
         something like “loop42”, which branches into two partitions, “loop42p1” and “loop42p2”.
         Partition one should have the label “system-boot” with a vfat/FAT32 filesystem, and partition two should have the label “writable” with an ext4 filesystem.
