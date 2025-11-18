@@ -224,7 +224,17 @@
         rootfstype=btrfs to use btrfs, it keeps the label writable, important so the Rpi can boot properly. After you 
         downloaded it to the ~/Downloads/ directory let's move it with the following command:"</p>
       <pre class="commands" id="comm-mv-cmdline"></pre>
-      <p></p>
+      <p>The network-config file allows your Raspberry Pi to connect to your home network using Wi-Fi, Ethernet, or both.
+        You only need to modify the Wi-Fi SSID line—be careful not to change the indentation, and keep the quotation 
+        marks (""). Do the same for your Wi-Fi password: make sure it stays inside quotation marks. Finally, change 
+        the IP address if you want to use a different one (e.g., from .10 to any other value within 192.168.0.X/24). 
+        Some routers use the 192.168.1.X range instead, so check your network settings. To do that, open a terminal and 
+        type "ip addr", then look for your network information.
+      </p>
+      <p>After you have correctly edited this file, you can move it. Remember to double-check your Wi-Fi SSID and 
+        password—any typo will make your Raspberry Pi unreachable via SSH.
+      </p>
+      <pre class="commands" id="comm-mv-network"></pre>
     </section>
   </main>
   <script src="/Project-Nebula/scripts/sidebar-collapseButton.js"></script>

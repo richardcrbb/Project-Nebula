@@ -121,3 +121,15 @@ fetch('/Project-Nebula/code/commands/8-mv-cmdline.sh', {cache: 'no-store'})
   target.innerHTML = text;
 })
 .catch(e => console.log(e));
+
+//. mv-network
+fetch('/Project-Nebula/code/commands/9-mv-network.sh', {cache: 'no-store'})
+.then(r =>{
+  if(!r.ok) throw new Error('command mv-network.sh not found' + r.status);
+  return r.text();
+})
+.then(texto =>{
+  const target = document.querySelector('#comm-mv-network');
+  target.innerHTML = texto;
+})
+.catch(e => console.log(e));
