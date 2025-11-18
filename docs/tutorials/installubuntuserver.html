@@ -122,10 +122,10 @@
           receive a warning but don't pay attetion to it, the second one is the package you will use to create the gpt partition
            table and create the partitions, if you don't have it you can install it using "sudo apt update && sudo apt install 
            gdisk", now inside of gdisk type the following options:
-           <li>o "Letter o"</li>
+           <li> <p class="commands">o</p> "Letter o"</li>
            <li>"This option deletes all partitions and creates a new protective MBR. Proceed?</li>
-           <li>y</li>
-           <li>n</li>
+           <li><p class="commands">y</p></li>
+           <li><p class="commands">n</p></li>
            <li>"Partition number (1-128, default 1):"</li>
            <li>hit enter</li>
            <li>"First sector (34-124735454, default = 2048) or {+-}size{KMGTP}:"</li>
@@ -169,6 +169,7 @@
       </a>
       <p>Open a terminal and extract the image from the .xz file, replace the name of the file for the downloaded file name.</p>
       <pre class="commands" id="comm-xz"></pre>
+      <p>After this you should see the image file without the .xz extension.</p>
       <p>Create directories to mount your partitions to:</p>
       <pre class="commands" id="comm-mkdir"></pre>
       <p>After you have properly created the folders, it is time to  </p>

@@ -1,0 +1,67 @@
+* [33md6ffc0c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain2[m[33m)[m Commit inicial limpio
+* [33m23f7a67[m[33m ([m[1;31morigin/main[m[33m)[m prueba3
+* [33mdbcf261[m prueba3
+* [33m2881cb9[m prueba3
+* [33mebb081d[m prueba3
+* [33mb5abb30[m prueba3
+* [33m754c695[m prueba3
+* [33me0a2d23[m prueba3
+* [33mcaa74ec[m prueba3
+* [33m51807ef[m prueba3
+* [33m620a0db[m prueba3
+* [33mdf9f43a[m prueba3
+* [33m1acbaf2[m prueba3
+* [33m78c164a[m prueba3
+* [33m2c17bc7[m prueba3
+* [33mbb157d9[m prueba3
+* [33m0649e6a[m prueba3
+* [33mcb9da7b[m prueba3
+* [33mad21162[m prueba 2
+* [33m000473f[m prueba 2
+* [33m2164075[m prueba 2
+* [33mcf0c8b4[m prueba 2
+* [33m9ea5229[m prueba 2
+* [33m4f7637d[m prueba 2
+* [33m4365d81[m prueba 2
+* [33m5babc56[m prueba 2
+* [33m4869fa9[m prueba 2
+* [33m7894fd1[m prueba 2
+* [33mfdb4d2b[m prueba 1
+* [33mb472e24[m ruta dentro de docs para fetch correcto
+*   [33m886abf6[m Merge branch 'main' of github.com:richardcrbb/Project-Nebula
+[32m|[m[33m\[m  
+[32m|[m * [33m5f18f6d[m Add script for loading open terminal shortcut
+[32m|[m * [33m932e8a3[m Add empty paragraph for open terminal section
+[32m|[m * [33mf994efe[m Load terminal shortcut content dynamically
+[32m|[m * [33m854b8f5[m Fix script path for sidebar collapse button
+[32m|[m * [33m740b43a[m Fix script source path for sidebar-collapseButton
+[32m|[m * [33mae534ad[m Update script source for sidebar collapse button
+[32m|[m * [33maaddbf4[m Update script source path in index.html
+[32m|[m * [33md97b697[m Delete docs/script.js
+[32m|[m * [33m0c97416[m Rename sidebar-collapseButton to sidebar-collapseButton.js
+[32m|[m * [33me4c1444[m Add sidebar collapse button functionality
+[32m|[m * [33m8653eb9[m Add keyboard shortcut for opening terminal
+* [33m|[m [33m3d7a8a7[m no se que hice
+[33m|[m[33m/[m  
+* [33m2103d61[m Add keyboard shortcut instruction for terminal
+* [33m36b8e9a[m lets get stated title6
+* [33ma56060d[m lets get stated title5
+* [33m1306827[m lets get stated title4
+* [33m3e49d02[m lets get stated title3
+* [33m957fe17[m lets get stated title1
+* [33mffe5c02[m lets get stated title
+* [33m20c198d[m intro install ubuntu os
+* [33mc9b087c[m se colocaron rutas absolutas, descripcion inicial de installacion ubuntu server os
+* [33mc650839[m rutas relativas8
+* [33m6a3fe40[m rutas relativas7
+* [33m4732a4b[m rutas relativas6
+* [33md696250[m rutas relativas5
+* [33m4ee31b5[m rutas relativas4
+* [33me02f0fa[m rutas relativas3
+* [33mb4b1f82[m rutas relativas2
+* [33m3605d34[m rutas relativas
+* [33m52af309[m Se dejo sidebar como componente para agregar en posteriores paginas tambien se arreglo script para agregar clase collapsed en elementos para css
+* [33mfb0a628[m Se mejoro barra lateral y recarga solo de main
+* [33m8fcf2e0[m Se inicio con la pagina web basica
+* [33md90ec39[m se mueve index a carpeta docs para pagina web
+* [33mf7f0966[m first commit
