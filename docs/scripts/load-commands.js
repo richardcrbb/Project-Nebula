@@ -39,7 +39,7 @@ fetch('/Project-Nebula/code/commands/3-xz.sh', {cache: 'no-store'})
 .catch(e => console.log(e));
 
 //. mkdir
-fetch('/Project-Nebula/code/commands/4-mkdir.sh', {cache: 'no-store'})
+fetch('/Project-Nebula/code/commands/5-mkdir.sh', {cache: 'no-store'})
 .then(r => {
   if(!r.ok) throw new Error('command mkdir.sh not found' + r.status);
   return r.text();
