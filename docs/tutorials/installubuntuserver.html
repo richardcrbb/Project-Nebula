@@ -122,37 +122,37 @@
           receive a warning but don't pay attetion to it, the second one is the package you will use to create the gpt partition
            table and create the partitions, if you don't have it you can install it using "sudo apt update && sudo apt install 
            gdisk", now inside of gdisk type the following options:
-           <li> <span class="commands">o</span> "Letter o"</li>
+           <li> <kbd>o</kbd> "Letter o"</li>
            <li>"This option deletes all partitions and creates a new protective MBR. Proceed?</li>
            <li><kbd>y</kbd></li>
-           <li><span class="commands">n</span></li>
+           <li><kbd>n</kbd></li>
            <li>"Partition number (1-128, default 1):"</li>
-           <li>hit enter</li>
+           <li><kbd>enter</kbd></li>
            <li>"First sector (34-124735454, default = 2048) or {+-}size{KMGTP}:"</li>
-           <li>hit enter</li>
+           <li><kbd>enter</kbd></li>
            <li>"Last sector (2048-124735454, default = 124733439) or {+-}size{KMGTP}:"</li>
-           <li>+512M</li>
+           <li><kbd>+512M</kbd></li>
            <li>"Current type is 8300 (Linux filesystem) Hex code or GUID (L to show codes, Enter = 8300):"</li>
-           <li>ef00 "zero zero, not letter o"</li>
+           <li><kbd>ef00</kbd> "zero zero, not letter o"</li>
            <p>the o option creates the gpt table, the n option creates a new partition, the ef00 hex code creates an EFI system 
             partition, necessary for boot</p>
            <p>Now you created the first efi partition, continue to create the root partition:</p>
-           <li>n</li>
-           <li>hit enter</li>
-           <li>hit enter</li>
-           <li>+30G "at least 20G for the root partition! or more if you have more space available, a big storage device is recommended"</li>
-           <li>hit enter</li>
+           <li><kbd>n</kbd></li>
+           <li><kbd>enter</kbd></li>
+           <li><kbd>enter</kbd></li>
+           <li><kbd>+30G</kbd> "at least 20G for the root partition! or more if you have more space available, a big storage device is recommended"</li>
+           <li><kbd>enter</kbd></li>
            <p>Now you created the second partition for the OS., continue to create the data partition which is going to take the available space:</p>
-           <li>n</li>
-           <li>hit enter</li>
-           <li>hit enter</li>
-           <li>hit enter</li>
-           <li>hit enter</li>
+           <li><kbd>n</kbd></li>
+           <li><kbd>enter</kbd></li>
+           <li><kbd>enter</kbd></li>
+           <li><kbd>enter</kbd></li>
+           <li><kbd>enter</kbd></li>
            <p>You can review the changes that are going to take place with:</p>
-           <li>p</li>
+           <li><kbd>p</kbd></li>
            <li>There will be a table with three partitions you just created, save the changes with:</li>
-           <li>w</li>
-           <li>y</li>
+           <li><kbd>w</kbd></li>
+           <li><kbd>y</kbd></li>
         </p>
       </ul>
       <p>To review your devices and partitions again:</p>
