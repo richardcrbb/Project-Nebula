@@ -63,7 +63,7 @@ fetch('/Project-Nebula/code/commands/5-mkdir.sh', {cache: 'no-store'})
 .catch(e => console.log(e));
 
 //. mount
-fetch('/Project-Nebula/code/commands/6-mount', {cache: 'no-store'})
+fetch('/Project-Nebula/code/commands/6-mount.sh', {cache: 'no-store'})
 .then(r => {
   if(!r.ok) throw new Error('command mount.sh not found' + r.status);
   return r.text();
