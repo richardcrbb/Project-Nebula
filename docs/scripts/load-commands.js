@@ -133,3 +133,15 @@ fetch('/Project-Nebula/code/commands/9-mv-network.sh', {cache: 'no-store'})
   target.innerHTML = texto;
 })
 .catch(e => console.log(e));
+
+//. mv-network
+fetch('/Project-Nebula/code/commands/10-mv-user-data.sh', {cache: 'no-store'})
+.then(r =>{
+  if(!r.ok) throw new Error('command mv-user-data.sh not found' + r.status);
+  return r.text();
+})
+.then(texto =>{
+  const target = document.querySelector('#comm-mv-user-data');
+  target.innerHTML = texto;
+})
+.catch(e => console.log(e));

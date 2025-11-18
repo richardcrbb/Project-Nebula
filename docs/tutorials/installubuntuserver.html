@@ -235,6 +235,12 @@
         password—any typo will make your Raspberry Pi unreachable via SSH.
       </p>
       <pre class="commands" id="comm-mv-network"></pre>
+      <p>Lastly, you need to edit the user-data file. This file contains your Raspberry Pi's server name, your username 
+        (entered twice), and a temporary password, which you should leave as "12345678". When you log in for the first 
+        time, the system will prompt you to change this password, so you won't be leaving it stored in plain text in 
+        this file.
+      </p>
+      <pre class="commands" id="comm-mv-user-data"></pre>
     </section>
   </main>
   <script src="/Project-Nebula/scripts/sidebar-collapseButton.js"></script>
