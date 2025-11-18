@@ -160,6 +160,8 @@
       </ul>
       <p>To review your devices and partitions again:</p>
       <p class="commands" id="comm-lsblk"></p>
+    </section>
+    <section class="mkfs">
       <p>Create the filesystems and labels for each partition, use vfat-fat32 filesystem for the partition 1, btrfs 
         filesystem for partitions 2 and 3, it is very important to label partition 1 as 'system-boot' and partitin 2 
         as 'writable' so the Raspberry pi firmware can boot properly!!!, the 3rd partition may be label as you want 
@@ -169,6 +171,8 @@
       <pre class="commands" id="comm-btrfs"></pre>
       <p>Create the filesystems, replace x in "sdx1" "sdx2" "sdx3" for the correct device letter e.g 'sdb1' 'sdb2' 'sdb3':</p>
       <pre class="commands" id="comm-mkfs"></pre>
+    </section>
+    <section class="download image and decompress">
       <p>Now download the LTS most recent version of ubuntu server os pre-installed for 
         rpi "Raspberry Pi Generic (64-bit ARM) preinstalled server image" that is in the section 
         "Preinstalled server image" of the following link for the release you chose or...
@@ -184,6 +188,8 @@
       <p>After this you should see the image file without the .xz extension. So load the image to a virtual device call loop 
         as:
       </p>
+    </section>
+    <section class="mount">
       <pre class="commands" id="comm-losetup"></pre>
       <p>Identify the virtual device that contains your server image. It starts with “loop” followed by a number,
         something like “loop42”, which branches into two partitions, “loop42p1” and “loop42p2”.
@@ -197,6 +203,8 @@
       replace # in "loop#p1" "loop#p2" for the correct loop number you set up e.g 'loop42p1' 'loop42p2', and replace x 
       in "sdx1" "sdx2" for the correct device letter e.g 'sdb1' 'sdb2'.</p>
       <pre class="commands" id="comm-mount"></pre>
+    </section>
+    <section class="copy and edit config files"></section>
       <p>Now copy the image content inside the rpidev directory</p>
       <pre class="commands" id="comm-cp"></pre>
       <p>You need to modify three files in order to boot properly</p>
