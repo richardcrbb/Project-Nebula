@@ -27,7 +27,7 @@ fetch('/Project-Nebula/code/commands/2-gdisk.sh', {cache: "no-store"})
 .catch(e => console.log(e));
 
 //. btrfs
-fetch('Project-Nebula/code/commands/2.1-btrfs.sh', {cache: 'no-store'})
+fetch('/Project-Nebula/code/commands/2.1-btrfs.sh', {cache: 'no-store'})
 .then(r => {
   if(!r.ok) throw new Error('command btrfs.sh not found' + r.status);
   return r.text();
@@ -39,7 +39,7 @@ fetch('Project-Nebula/code/commands/2.1-btrfs.sh', {cache: 'no-store'})
 .catch(e => console.log(e));
 
 //. mkfs
-fetch('Project-Nebula/code/commands/2.2-mkfs.sh', {cache: 'no-store'})
+fetch('/Project-Nebula/code/commands/2.2-mkfs.sh', {cache: 'no-store'})
 .then(r =>{
   if (!r.ok) throw new Error('command mkfs.sh not found' + r.status);
   return r.text();
