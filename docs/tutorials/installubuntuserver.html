@@ -213,6 +213,18 @@
         <li>network-config</li>
         <li>cmdline.txt</li>
       </ul>
+      <p>You can edit the files located in the /mnt/rpidev/system-boot/ directory, but for the sake of this tutorial, 
+        it's easier to download them directly. This way, you can more easily understand the necessary changes by 
+        following the links below:
+      </p>
+      <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/cmdline.txt"></a>
+      <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/network-config"></a>
+      <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/user-data"></a>
+      <p>The first one "cmdline.txt is ready to be moved to the Rpi dev folder, the only change made on this is the 
+        rootfstype=btrfs to use btrfs, it keeps the label writable, important so the Rpi can boot properly. After you 
+        downloaded it to the ~/Downloads/ directory let's move it with the following command:"</p>
+      <pre class="commands" id="comm-mv-cmdline"></pre>
+      <p></p>
     </section>
   </main>
   <script src="/Project-Nebula/scripts/sidebar-collapseButton.js"></script>
