@@ -38,6 +38,18 @@ fetch('/Project-Nebula/code/commands/3-xz.sh', {cache: 'no-store'})
 })
 .catch(e => console.log(e));
 
+//. losetup
+fetch('/Project-Nebula/code/commands/4-losetup.sh', {cache: "no-store"})
+.then(r => {
+  if(!r.ok) throw new Error ("command losetup.sh not found" + r.status);
+  return r.text();
+})
+.then(text => {
+  const target = document.querySelector('#comm-losetup');
+  target.innerHTML = text;
+})
+.catch(e => console.log(e));
+
 //. mkdir
 fetch('/Project-Nebula/code/commands/5-mkdir.sh', {cache: 'no-store'})
 .then(r => {

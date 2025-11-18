@@ -134,7 +134,7 @@
            <li><kbd>+512M</kbd></li>
            <li>"Current type is 8300 (Linux filesystem) Hex code or GUID (L to show codes, Enter = 8300):"</li>
            <li><kbd>ef00</kbd> "zero zero, not letter o"</li>
-           <p>the o option creates the gpt table, the n option creates a new partition, the ef00 hex code creates an EFI system 
+           <p>The o option creates the gpt table, the n option creates a new partition, the ef00 hex code creates an EFI system 
             partition, necessary for boot</p>
            <p>Now you created the first efi partition, continue to create the root partition:</p>
            <li><kbd>n</kbd></li>
@@ -169,7 +169,10 @@
       </a>
       <p>Open a terminal and extract the image from the .xz file, replace the name of the file for the downloaded file name.</p>
       <pre class="commands" id="comm-xz"></pre>
-      <p>After this you should see the image file without the .xz extension.</p>
+      <p>After this you should see the image file without the .xz extension. So load the image to a virtual device call loop 
+        as:
+      </p>
+      <p class="commands" id="comm-losetup"></p>
       <p>Create directories to mount your partitions to:</p>
       <pre class="commands" id="comm-mkdir"></pre>
       <p>After you have properly created the folders, it is time to  </p>
