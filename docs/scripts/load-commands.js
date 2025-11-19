@@ -145,3 +145,15 @@ fetch('/Project-Nebula/code/commands/10-mv-user-data.sh', {cache: 'no-store'})
   target.innerHTML = texto;
 })
 .catch(e => console.log(e));
+
+//. ssh
+fetch('/Project-Nebula/code/commands/11-ssh.sh', {cache: 'no-store'})
+.then(r =>{
+  if(!r.ok) throw new Error('command ssh.sh not found' + r.status);
+  return r.text();
+})
+.then(texto =>{
+  const target = document.querySelector('#comm-ssh');
+  target.innerHTML = texto;
+})
+.catch(e => console.log(e));
