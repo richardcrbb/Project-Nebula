@@ -68,6 +68,10 @@ a:hover {
   color: #1a73e8;
 }
 
+a:visited {
+  color: #3F00FF
+}
+
 
 /* Sidebar */
 .sidebar {
