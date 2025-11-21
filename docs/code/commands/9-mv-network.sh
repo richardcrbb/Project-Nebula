@@ -1,1 +1,1 @@
-sudo mv -av ~/Downloads/network-config /mnt/rpidev/system-boot/
+sudo cp -av ~/Downloads/network-config /mnt/rpidev/system-boot/

@@ -1,1 +1,1 @@
-sudo mv -av ~/Downloads/cmdline.txt /mnt/rpidev/system-boot/
+sudo cp -av ~/Downloads/cmdline.txt /mnt/rpidev/system-boot/

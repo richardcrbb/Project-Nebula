@@ -1,1 +1,1 @@
-sudo mv -av ~/Downloads/user-data /mnt/rpidev/system-boot/
+sudo cp -av ~/Downloads/user-data /mnt/rpidev/system-boot/
