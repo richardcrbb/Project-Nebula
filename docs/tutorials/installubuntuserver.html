@@ -224,7 +224,6 @@
       <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/user-data" target="_blank">user-data &#x2197;</a>
       <p>The first one "cmdline.txt is ready to be moved to the Rpi dev folder, the only change made on this is the 
         rootfstype=btrfs to use btrfs, it keeps the label writable, important so the Rpi can boot properly.</p>
-      <pre class="commands" id="comm-mv-cmdline"></pre>
       <p>The network-config file allows your Raspberry Pi to connect to your home network using Wi-Fi, Ethernet, or both.
         You only need to modify the Wi-Fi SSID line—be careful not to change the indentation, and keep the quotation 
         marks (""). Do the same for your Wi-Fi password: make sure it stays inside quotation marks. Finally, change 
@@ -235,13 +234,11 @@
       <p>After you have correctly edited this file remember to double-check your Wi-Fi SSID and 
         password—any typo will make your Raspberry Pi unreachable via SSH.
       </p>
-      <pre class="commands" id="comm-mv-network"></pre>
       <p>Lastly, you need to edit the user-data file. This file contains your Raspberry Pi's server name, your username 
         (entered twice), and a temporary password, which you should leave as "12345678". When you log in for the first 
         time, the system will prompt you to change this password, so you won't be leaving it stored in plain text in 
         this file.
       </p>
-      <pre class="commands" id="comm-mv-user-data"></pre>
     </section>
     <section class="start-rpi">
       <p>Now you are ready to connect the storage device to the usb port in the Rpi, plug in an ethernet 

@@ -124,42 +124,6 @@ fetch('/Project-Nebula/code/commands/7-cp.sh', {cache: 'no-store'})
 })
 .catch(e => console.log(e));
 
-// //. mv-cmdline
-// fetch('/Project-Nebula/code/commands/8-mv-cmdline.sh', {cache: 'no-store'})
-// .then(r => {
-//   if(!r.ok) throw new Error('command mv-cmdline.sh not found' + r.status);
-//   return r.text();
-// })
-// .then(text => {
-//   const target = document.querySelector('#comm-mv-cmdline');
-//   target.innerHTML = text;
-// })
-// .catch(e => console.log(e));
-
-// //. mv-network
-// fetch('/Project-Nebula/code/commands/9-mv-network.sh', {cache: 'no-store'})
-// .then(r =>{
-//   if(!r.ok) throw new Error('command mv-network.sh not found' + r.status);
-//   return r.text();
-// })
-// .then(texto =>{
-//   const target = document.querySelector('#comm-mv-network');
-//   target.innerHTML = texto;
-// })
-// .catch(e => console.log(e));
-
-// //. mv-network
-// fetch('/Project-Nebula/code/commands/10-mv-user-data.sh', {cache: 'no-store'})
-// .then(r =>{
-//   if(!r.ok) throw new Error('command mv-user-data.sh not found' + r.status);
-//   return r.text();
-// })
-// .then(texto =>{
-//   const target = document.querySelector('#comm-mv-user-data');
-//   target.innerHTML = texto;
-// })
-// .catch(e => console.log(e));
-
 //. ssh
 fetch('/Project-Nebula/code/commands/11-ssh.sh', {cache: 'no-store'})
 .then(r =>{
