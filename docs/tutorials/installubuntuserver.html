@@ -213,9 +213,9 @@
         <li>network-config</li>
         <li>cmdline.txt</li>
       </ul>
-      <p>You can edit the files located in the /mnt/rpidev/system-boot/ directory, but for the sake of this tutorial, 
-        it's easier to download them directly. This way, you can more easily understand the necessary changes by 
-        following the links below:
+      <p>You NEED TO edit the files located in the /mnt/rpidev/system-boot/ directory, DO NOT COPY AND PASTE THIS FILE, 
+        it's easier to download them directly This way, you can more easily understand as a guide
+        BUT YOU NEED TO EDIT THEM ON THEIR CURRENT DIRECTORY, download the files in the links below:
       </p>
       <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/cmdline.txt" target="_blank">cmdline.txt &#x2197;</a>
       <br>
@@ -223,8 +223,7 @@
       <br>
       <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/user-data" target="_blank">user-data &#x2197;</a>
       <p>The first one "cmdline.txt is ready to be moved to the Rpi dev folder, the only change made on this is the 
-        rootfstype=btrfs to use btrfs, it keeps the label writable, important so the Rpi can boot properly. After you 
-        downloaded it to the ~/Downloads/ directory let's move it with the following command:"</p>
+        rootfstype=btrfs to use btrfs, it keeps the label writable, important so the Rpi can boot properly.</p>
       <pre class="commands" id="comm-mv-cmdline"></pre>
       <p>The network-config file allows your Raspberry Pi to connect to your home network using Wi-Fi, Ethernet, or both.
         You only need to modify the Wi-Fi SSID line—be careful not to change the indentation, and keep the quotation 
@@ -233,7 +232,7 @@
         Some routers use the 192.168.1.X range instead, so check your network settings. To do that, open a terminal and 
         type "ip addr", then look for your network information.
       </p>
-      <p>After you have correctly edited this file, you can move it. Remember to double-check your Wi-Fi SSID and 
+      <p>After you have correctly edited this file remember to double-check your Wi-Fi SSID and 
         password—any typo will make your Raspberry Pi unreachable via SSH.
       </p>
       <pre class="commands" id="comm-mv-network"></pre>
