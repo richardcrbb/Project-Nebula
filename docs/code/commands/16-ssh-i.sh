@@ -1,0 +1,1 @@
+ssh -i ~/.ssh/"YOUR-SSH-KEY" YOUR-RPI-USERNAME@192.168.x.x

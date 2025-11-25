@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Nebula</title>
+  <link rel="icon" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+  <div id="sidebar"></div>
+  <main class="main-content">
+    <section class="tutorial-intro">
+      <h1>Installing Ubuntu Server on microSD or NVMe</h1>
+
+      <div class="Banner">
+        <img src="./images/Imagen2.png" alt="image 2" width="640" height="360">
+      </div>
+
+      <p>
+        Preparing a reliable and modular home server starts with setting up your storage correctly.
+        In this tutorial, you will learn how to install <strong>Ubuntu Server</strong> onto a
+        <strong>microSD card</strong> or an <strong>NVMe drive</strong>, using USB adapters as needed.
+        The goal is to create a clean, optimized, and flexible storage layout that will serve as the
+        foundation for all future configurations.
+      </p>
+
+      <h2>Partition Structure</h2>
+      <p>
+        We will begin by creating a <strong>GPT partition table</strong> and defining
+        <strong>three essential partitions</strong>:
+      </p>
+
+      <ul>
+        <li><strong>system-boot</strong> - EFI partition required for booting.</li>
+        <li><strong>writable</strong> - the main root partition where Ubuntu Server runs.</li>
+        <li><strong>data</strong> - a dedicated partition for persistent server and application data.</li>
+      </ul>
+
+      <p>
+        Each of these partitions will be formatted with <strong>Btrfs</strong>, a modern filesystem
+        that provides features such as snapshots, compression, and improved data integrity.
+        This structure keeps your system organized and simplifies future maintenance.
+      </p>
+
+      <h2>Operating System Image</h2>
+      <p>
+        After preparing the partitions, you will download an
+        <strong>official preinstalled Ubuntu Server image</strong> from the Ubuntu website and write it
+        to your device. To ensure proper booting and initial configuration, you will then modify
+        three important files:
+      </p>
+
+      <ul>
+        <li><strong>cmdline.txt</strong> - sets kernel boot parameters.</li>
+        <li><strong>network-config</strong> - defines the initial network setup.</li>
+        <li><strong>user-data</strong> - configures users, SSH access, and first-boot automation.</li>
+      </ul>
+
+      <p>
+        By the end of this tutorial, your microSD or NVMe device will contain a fully prepared
+        Ubuntu Server installation with a clean Btrfs-based layout, ready for further customization.
+      </p>
+
+      <h2>Next Steps</h2>
+      <p>
+        This is only the beginning. In the following tutorials on the
+        <a href="https://richardcrbb.github.io/Project-Nebula/" target="_blank">
+          Project Nebula website
+        </a>, you will learn how to:
+      </p>
+
+      <ul>
+        <li>Configure <strong>SSH key-based authentication</strong>.</li>
+        <li>Modify the <strong>boot order</strong> for NVMe-based boards.</li>
+        <li>Install a proper <strong>case</strong> for your Raspberry Pi.</li>
+        <li>Install <strong>Docker</strong> and many other services.</li>
+      </ul>
+
+      <p>
+        This tutorial establishes the foundation for building a secure, flexible, and powerful
+        home server environment capable of running dozens of services.
+      </p>
+    </section>
+    <br>
+    <section class="hardware-required">
+      <h2>Lets get started...</h2>
+      <p>
+        For this tutorial we will need the following hardware:
+        <ul>
+          <li>PC with Linux-OS -- OR -- flash a Ubuntu Desktop live image to a USB and boot from it ✅</li>
+          <li>MicroSD or NVMe, each connected via its own USB adapter ✅</li>
+          <li>Raspberry Pi, including its power supply ✅</li>
+          <li>[Optional] Ethernet cable to connect your Raspberry Pi to the router ✅</li>
+        </ul>
+      </p>
+    </section>
+    <br>
+    <section class="partitions">
+      <p>First thing is to connect your storage device and open a terminal</p>
+      <p id="open-terminal-shortcut"></p>
+      <p>Now identify which drive you are going to partition</p>
+      <p class="commands" id="comm-lsblk"></p>
+      <p>Let's suppose your device is 'sdx', then execute the following commands (remember to replace x for 
+        your device letter keeping the * in the first command, e.g. 'sdb*'):</p>
+      <pre class="commands" id="comm-gdisk"></pre>
+      <!-- <p class="commands" id="comm-gdisk"></p> -->
+      <p>The first one is to unmount all the partitions that might be mounted, if there is one or any of them not mounted you will
+        receive a warning but don't pay attetion to it, the second one is the package you will use to create the gpt partition
+        table and create the partitions, if you don't have it you can install it using "sudo apt update && sudo apt install 
+        gdisk", now inside of gdisk type the following options:</p>
+      <ul>
+        <li> <kbd>o</kbd> "Letter o"</li>
+        <li>"This option deletes all partitions and creates a new protective MBR. Proceed?</li>
+        <li><kbd>y</kbd></li>
+        <li><kbd>n</kbd></li>
+        <li>"Partition number (1-128, default 1):"</li>
+        <li><kbd>enter</kbd></li>
+        <li>"First sector (34-124735454, default = 2048) or {+-}size{KMGTP}:"</li>
+        <li><kbd>enter</kbd></li>
+        <li>"Last sector (2048-124735454, default = 124733439) or {+-}size{KMGTP}:"</li>
+        <li><kbd>+512M</kbd></li>
+        <li>"Current type is 8300 (Linux filesystem) Hex code or GUID (L to show codes, Enter = 8300):"</li>
+        <li><kbd>ef00</kbd> "zero zero, not letter o"</li>
+      </ul>
+      <p>The o option creates the gpt table, the n option creates a new partition, the ef00 hex code creates an EFI system 
+        partition, necessary for boot</p>
+      <p>Now you created the first efi partition, continue to create the root partition:</p>
+      <ul>
+        <li><kbd>n</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>+30G</kbd> "at least 20G for the root partition! or more if you have more space available, a big storage device is recommended"</li>
+        <li><kbd>enter</kbd></li>
+      </ul>
+      <p>Now you created the second partition for the OS., continue to create the data partition which is going to take the available space:</p>
+      <ul>
+        <li><kbd>n</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>enter</kbd></li>
+        <li><kbd>enter</kbd></li>
+      </ul>
+      <p>You can review the changes that are going to take place with:</p>
+      <ul>
+        <li><kbd>p</kbd></li>
+        <li>There will be a table with three partitions you just created, save the changes with:</li>
+        <li><kbd>w</kbd></li>
+        <li><kbd>y</kbd></li>
+      </ul>
+      <p>To review your devices and partitions again:</p>
+      <p class="commands" id="comm-lsblk"></p>
+    </section>
+    <section class="mkfs">
+      <p>Create the filesystems and labels for each partition, use vfat-fat32 filesystem for the partition 1, btrfs 
+        filesystem for partitions 2 and 3, it is very important to label partition 1 as 'system-boot' and partitin 2 
+        as 'writable' so the Raspberry pi firmware can boot properly!!!, the 3rd partition may be label as you want 
+        I suggest 'MyDataDev'.
+      </p>
+      <p>In order to do that install the package btrfs, usually it does not come with ubuntu fresh install.</p>
+      <pre class="commands" id="comm-btrfs"></pre>
+      <p>Create the filesystems, replace x in "sdx1" "sdx2" "sdx3" for the correct device letter e.g 'sdb1' 'sdb2' 'sdb3':</p>
+      <pre class="commands" id="comm-mkfs"></pre>
+    </section>
+    <section class="download image and decompress">
+      <p>Now download the LTS most recent version of ubuntu server os pre-installed for 
+        rpi "Raspberry Pi Generic (64-bit ARM) preinstalled server image" that is in the section 
+        "Preinstalled server image" of the following link for the release you chose or...
+      </p>
+      <a href="https://cdimage.ubuntu.com/releases/?_gl=1*majgwx*_gcl_au*MTk5MjEwNjA1Ny4xNzYyNjQxNTI5" target="_blank">All the releases. &#x2197;</a>
+      <p>For this tutorial download the image from this link:
+      </p>
+      <a href="https://cdimage.ubuntu.com/releases/24.04.3/release/ubuntu-24.04.3-preinstalled-server-arm64+raspi.img.xz" target="_blank">
+        ubuntu-24.04.3 pre-installed-server image. &#x2197;
+      </a>
+      <p>Open a terminal and extract the image from the .xz file, replace the name of the file for the downloaded file name.</p>
+      <pre class="commands" id="comm-xz"></pre>
+      <p>After this you should see the image file without the .xz extension. So load the image to a virtual device call loop 
+        as:
+      </p>
+    </section>
+    <section class="mount">
+      <pre class="commands" id="comm-losetup"></pre>
+      <p>Identify the virtual device that contains your server image. It starts with “loop” followed by a number,
+        something like “loop42”, which branches into two partitions, “loop42p1” and “loop42p2”.
+        Partition one should have the label “system-boot” with a vfat/FAT32 filesystem, and partition two should have the label “writable” with an ext4 filesystem.
+        This is why we cannot copy the image directly with its partitions; we need to create them manually in order to use btrfs as the filesystem.
+      </p>
+      <p>Create directories to mount your partitions to:</p>
+      <pre class="commands" id="comm-mkdir"></pre>
+      <p>After you have properly created the directories system-boot and writable in both the image directory 
+        (to mount the image) and the rpidev directory (to mount the RPi storage device), it is time to mount them, remember to 
+      replace # in "loop#p1" "loop#p2" for the correct loop number you set up e.g 'loop42p1' 'loop42p2', and replace x 
+      in "sdx1" "sdx2" for the correct device letter e.g 'sdb1' 'sdb2'.</p>
+      <pre class="commands" id="comm-mount"></pre>
+    </section>
+    <section class="copy and edit config files"></section>
+      <p>Now copy the image content inside the rpidev directory</p>
+      <pre class="commands" id="comm-cp"></pre>
+      <p>You need to modify three files in order to boot properly</p>
+      <ul>
+        <li>user-data</li>
+        <li>network-config</li>
+        <li>cmdline.txt</li>
+      </ul>
+      <p>You NEED TO edit the files located in the /mnt/rpidev/system-boot/ directory, DO NOT COPY AND PASTE THIS FILE, 
+        it's easier to download them directly This way, you can more easily understand as a guide
+        BUT YOU NEED TO EDIT THEM ON THEIR CURRENT DIRECTORY, download the files in the links below:
+      </p>
+      <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/cmdline.txt" target="_blank">cmdline.txt &#x2197;</a>
+      <br>
+      <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/network-config" target="_blank">network-config &#x2197;</a>
+      <br>
+      <a href="https://github.com/richardcrbb/Project-Nebula/blob/dev/1%20Ubuntu%20Server%20in%20BTRFS/user-data" target="_blank">user-data &#x2197;</a>
+      <p>The first one "cmdline.txt is ready to be moved to the Rpi dev folder, the only change made on this is the 
+        rootfstype=btrfs to use btrfs, it keeps the label writable, important so the Rpi can boot properly.</p>
+      <p>The network-config file allows your Raspberry Pi to connect to your home network using Wi-Fi, Ethernet, or both.
+        You only need to modify the Wi-Fi SSID line—be careful not to change the indentation, and keep the quotation 
+        marks (""). Do the same for your Wi-Fi password: make sure it stays inside quotation marks. Finally, change 
+        the IP address if you want to use a different one (e.g., from .10 to any other value within 192.168.0.X/24). 
+        Some routers use the 192.168.1.X range instead, so check your network settings. To do that, open a terminal and 
+        type "ip addr", then look for your network information.
+      </p>
+      <p>After you have correctly edited this file remember to double-check your Wi-Fi SSID and 
+        password—any typo will make your Raspberry Pi unreachable via SSH.
+      </p>
+      <p>Lastly, you need to edit the user-data file. This file contains your Raspberry Pi's server name, your username 
+        (entered twice), and a temporary password, which you should leave as "12345678". When you log in for the first 
+        time, the system will prompt you to change this password, so you won't be leaving it stored in plain text in 
+        this file.
+      </p>
+    </section>
+    <section class="start-rpi">
+      <p>Now you are ready to connect the storage device to the usb port in the Rpi, plug in an ethernet 
+        cable if you can and turn it on.
+      </p>
+      <p>Connect to your Raspberry Pi via SSH. To do this, use the command below and replace the IP address with the one 
+        you set in the network-config file along with the username you configured earlier.
+      </p>
+      <pre class="commands" id="comm-ssh"></pre>
+      <p>You will be promted to trust the connection, type yes and now you will be prompt you to change your old password "12345678" 
+        for and eight characters password for your user and you are good to go, you installed Ubuntu Server on a BTRFS file 
+        system.</p>
+      <p>The next step is to install docker and the services you need for your home server! it will be fun so stay tuned 
+        for my next tutorials!.
+      </p>
+    </section>
+  </main>
+  <script src="./scripts/0-sidebar-collapseButton.js"></script>
+  <script src="./scripts/1-install-ubuntu-script.js"></script>
+</body>
+
+</html>

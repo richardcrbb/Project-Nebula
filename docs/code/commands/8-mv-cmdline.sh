@@ -1,0 +1,1 @@
+sudo cp -av ~/Downloads/cmdline.txt /mnt/rpidev/system-boot/

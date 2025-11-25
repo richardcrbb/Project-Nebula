@@ -1,0 +1,1 @@
+ssh-copy-id -i ~/.ssh/"Your-SSH-Key-Name".pub "USER-NAME"@"SERVER-IP"

@@ -1,0 +1,1 @@
+ssh-keygen -t ed25519 -a 100 -C "Create-A-Desciption-Of-The-Key" -f ~/.ssh/"Write-your-pc-brand-or-location"

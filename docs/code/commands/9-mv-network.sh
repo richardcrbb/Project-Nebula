@@ -1,0 +1,1 @@
+sudo cp -av ~/Downloads/network-config /mnt/rpidev/system-boot/

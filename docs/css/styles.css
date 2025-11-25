@@ -52,6 +52,7 @@ img {
 
 
 li {
+  margin: 5px;
   color: #EADDCA;
   font-size: 20px;
   font-weight: 100;
@@ -65,6 +66,10 @@ a {
 
 a:hover {
   color: #1a73e8;
+}
+
+a:visited {
+  color: #3F00FF
 }
 
 
