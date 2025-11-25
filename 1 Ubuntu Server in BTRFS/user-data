@@ -1,0 +1,19 @@
+users:
+  - default
+  - name: CHANGE-THIS-FOR-YOUR-USERNAME 
+    lock_passwd: false
+    shell: /bin/bash
+    sudo: ALL=(ALL) ALL
+
+chpasswd:
+  expire: true
+  users:
+  - name: CHANGE-THIS-FOR-YOUR-USERNAME
+    password: "12345678"
+    type: text
+
+ssh_pwauth: true
+
+hostname: CHANGE-THIS-FOR-YOUR-SERVER-NAME
+
+
