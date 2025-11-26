@@ -93,3 +93,15 @@ fetch('./code/commands/18-ssh-configfile.sh', {cache: 'no-store'})
     target.innerHTML = texto;
 })
 .catch(e => console.error(e));
+
+//. ssh-add
+fetch('./code/commands/19-ssh-add.sh', {cache: 'no-store'})
+.then(r => {
+    if(!r.ok) throw new Error('command ssh-add.sh not found' + r.status);
+    return r.text();
+})
+.then(texto =>{
+    const target = document.querySelector('#comm-ssh-add');
+    target.innerHTML = texto;
+})
+.catch(e => console.error(e));

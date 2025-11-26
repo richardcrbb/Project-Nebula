@@ -62,7 +62,12 @@
       <p>Your file should look something like this:</p>
       <pre class="commands" id="comm-ssh-configfile"></pre>
       <p>With this configuration, you can now access your server simply by running: "ssh YOUR-HOST-NAME"</p>
-      
+      <h2>Extra commands</h2>
+      <p>The ssh agent keeps your ssh-keys in memory, and ubuntu reload all the keys from the ssh directory in the agent memory 
+        if you want to change this, move the key to another directory other than ~/.ssh/ and afterwards run the following 
+        command:
+      </p>
+      <pre class="commands" id="comm-ssh-add"></pre>
       
       
 
