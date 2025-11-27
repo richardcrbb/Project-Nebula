@@ -1,8 +1,8 @@
-//. install docker
+//. set docker apt repository
 
 fetch('./code/commands/20-install-docker.sh', {cache: 'no-store'})
 .then(r => {
-    if (!r.ok) throw new Error('command create-ssh-keypair.sh not found' + r.status);
+    if (!r.ok) throw new Error('command install-docker.sh not found' + r.status);
     return r.text();
 })
 .then(texto =>{
@@ -16,25 +16,11 @@ fetch('./code/commands/20-install-docker.sh', {cache: 'no-store'})
 
 fetch('./code/commands/20-install-docker2.sh', {cache: 'no-store'})
 .then(r => {
-    if (!r.ok) throw new Error('command create-ssh-keypair.sh not found' + r.status);
+    if (!r.ok) throw new Error('command install-docker2.sh not found' + r.status);
     return r.text();
 })
 .then(texto =>{
     const target = document.querySelector('#comm-install-docker2');
-    target.innerHTML= texto;
-})
-.catch(e => console.error(e));
-
-
-//. install docker 3
-
-fetch('./code/commands/20-install-docker3.sh', {cache: 'no-store'})
-.then(r => {
-    if (!r.ok) throw new Error('command create-ssh-keypair.sh not found' + r.status);
-    return r.text();
-})
-.then(texto =>{
-    const target = document.querySelector('#comm-install-docker3');
     target.innerHTML= texto;
 })
 .catch(e => console.error(e));
