@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Nebula</title>
+  <link rel="icon" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+  <div id="sidebar"></div>
+  <main class="main-content">
+    <section class="docker-install">
+      <h1>Set up your Important Data Device</h1>
+      <p>In this tutorial, we're going to configure our SDA3 partition by creating dedicated subvolumes for our services 
+        and for the critical configuration files of our operating system. These subvolumes will help us organize our data 
+        more efficiently and allow the system to take automatic snapshots of each volume on a regular schedule.</p>
+      <p>Later, in a separate tutorial, we'll set up a backup system that will store those snapshots on another physical 
+        SSD located on a different server. This backup drive will contain all the important data we want to keep safe. 
+        With this setup, we gain both version control over system changes and a reliable off-disk backup strategy.</p>
+    </section>
+    <section class="fix fstab for root">
+      <p>The first thing to do is check our root partition, labeled writable, using the following command:</p>
+      <pre class="commands" id="comm-findmnt"></pre>
+      <p>Here you will find information about your writable partition, the filesystem it uses, and its subvolume name, 
+        by default it should be subvol=/, which means the name of the subvolume is "forward slash" "/".</p>
+      <p>Let's edit and correct the fstab file:</p>
+      <pre class="commands" id="comm-fstab"></pre>
+      <p>The following configuration improves the performance of the partition.It should look like this:</p>
+      <pre class="commands" id="comm-fstabfile"></pre>
+      <p>It is time to remount the root filesystem (/) with its specified options.</p>
+      <pre class="commands" id="comm-remount"></pre>
+      <pre class="commands" id="comm-daemon-reload"></pre>
+    </section>
+    <section class="sda3 subvolumes">
+      <h2>Organize sda3</h2>
+      <p>Now we need to create the subvolumes required for our services:</p>
+        <ul>
+          <li>@snapshots</li>
+          <li>@conf-files</li>
+          <li>@nextcloud</li>
+          <li>@wireguard</li>
+          <li>@pihole</li>
+          <li>@supabase</li>
+        </ul>
+      <p>Later on, you can continue adding more subvolumes for additional services in the future.</p>
+      <p>Install the btrfs package in case you don't have it already in your server:</p>
+      <pre class="commands" id="comm-btrfs"></pre>
+      <p>Create a directory where you will mount your sda3 partition.</p>
+      <pre class="commands" id="comm-mkdir-sda3"></pre>
+      <p>Mount it to that directory.</p>
+      <pre class="commands" id="comm-mount-sda3"></pre>
+      <p>Create the necessary subvolumes for the services you need:</p>
+      <pre class="commands" id="comm-create-subvolumes"></pre>
+      </section>
+      <section class="mount subvolumes">
+      <p>Once you have created the subvolumes, it's time to create the directories where these subvolumes 
+        will be mounted.</p>
+      <pre class="commands" id="comm-mkdir-subvol"></pre>
+      <p>Edit the fstab file to mount these subvolumes automatically at boot.</p>
+      <pre class="commands" id="comm-fstabfilesubvol"></pre>
+      <p>Mount all subvolumes and check for any possible errors:</p>
+      <pre class="commands" id="comm-mount-a"></pre>
+      <pre class="commands" id="comm-daemon-reload2"></pre>
+      <p>The next step is to configure your service's docker-compose file. Make sure to deploy each service using the 
+        specific subvolume you created, so that its important data is properly persisted.</p>
+      <p>Save this .yaml file in the @conf-files subvolume. This way, if your OS partition fails or you encounter any 
+        other problem, you can reinstall the server from a fresh OS install, set up Docker, and redeploy your services 
+        using this .yaml file. All your persistent data will remain intact, and your services will continue as if nothing 
+        happened.</p>
+      <p>We will go through this process service by service in the following tutorials.</p>
+      </section>
+    
+
+
+      
+        
+    
+  </main>
+  <script src="./scripts/0-sidebar-collapseButton.js"></script>
+  <script src="./scripts/4-MyDataDev.js"></script>
+</body>
+
+</html>
