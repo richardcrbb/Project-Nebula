@@ -1,1 +1,1 @@
-sudo nano fstab
+sudo nano /etc/fstab
