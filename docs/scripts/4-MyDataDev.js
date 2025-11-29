@@ -133,6 +133,21 @@ fetch('./code/commands/30-mkdir-subvol.sh', {cache: 'no-store'})
 .catch(e => console.log(e));
 
 
+//. fstab
+
+fetch('./code/commands/23-fstab.sh', {cache: 'no-store'})
+.then(r => {
+    if (!r.ok) throw new Error('command fstab.sh not found' + r.status);
+    return r.text();
+})
+.then(texto =>{
+    const target = document.querySelector('#comm-fstab2');
+    target.innerHTML= texto;
+})
+.catch(e => console.error(e));
+
+
+
 //. fstabfilesubvol
 fetch('./code/commands/31-fstabfilesubvol.sh', {cache: 'no-store'})
 .then(r => {
@@ -141,6 +156,19 @@ fetch('./code/commands/31-fstabfilesubvol.sh', {cache: 'no-store'})
 })
 .then(text =>{
   const target = document.querySelector('#comm-fstabfilesubvol');
+  target.innerHTML = text;
+})
+.catch(e => console.log(e));
+
+
+//. umount-sda3
+fetch('./code/commands/33-umount-sda3.sh', {cache: 'no-store'})
+.then(r => {
+  if(!r.ok) throw new Error('command umount-sda3.sh not found' + r.status);
+  return r.text();
+})
+.then(text =>{
+  const target = document.querySelector('#comm-umount-sda3');
   target.innerHTML = text;
 })
 .catch(e => console.log(e));
