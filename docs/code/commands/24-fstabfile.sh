@@ -1,1 +1,1 @@
-label=writable / btrfs defaults,noatime,compress=zstd,ssd,subvol=/ 0 0 
+LABEL=writable / btrfs defaults,noatime,compress=zstd,ssd,subvol=/ 0 0 
