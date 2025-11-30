@@ -1,5 +1,3 @@
-#root
-LABEL=writable / btrfs defaults,noatime,compress=zstd,ssd,subvol=/ 0 0 
 #nextcloud
 LABEL=MyDataDev /mnt/subvolumes/nextcloud btrfs defaults,noatime,compress=zstd,ssd,subvol=@nextcloud 0 0
 #wireguard
