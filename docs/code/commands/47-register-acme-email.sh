@@ -1,0 +1,1 @@
+~/.acme.sh/acme.sh --register-account -m YOUR-EMAIL@ejemplo.com

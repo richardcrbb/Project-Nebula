@@ -1,0 +1,1 @@
+sudo openssl s_server -accept 443 -nocert

@@ -1,0 +1,1 @@
+sudo nano /var/lib/docker/volumes/nextcloud_aio_nextcloud/_data/config/config.php

@@ -1,0 +1,1 @@
+sudo find /var/lib/docker/volumes/nextcloud_aio_nextcloud_data/_data/ -path '*/preview/*' -exec rm -rfv {} +

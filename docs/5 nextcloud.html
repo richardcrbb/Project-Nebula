@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Nebula</title>
+  <link rel="icon" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  </head>
+
+<body>
+  <div id="sidebar"></div>
+  <main class="main-content">
+    <section class="intro-nextcloud">
+      <h1>NEXTCLOUD</h1>
+      <div class="Banner">
+        <img src="./images/Imagen5.png" alt="Banner" width="640" height="360">        
+      </div>
+      <p>In this tutorial, you'll learn how to install Nextcloud All-in-One using a Docker Compose file configured to store its data inside a dedicated 
+          Btrfs subvolume located on a separate partition of the same device. If you haven't completed the setup of those subvolumes yet, make sure to watch 
+          the previous tutorial—linked in the sidebar of this website.</p>
+    </section>
+    <section class="pre-requisites">
+      <h2>Mandatory</h2>
+      <p> To install Nextcloud on your server, you must meet the following requirements. You'll be prompted to use a domain name. If you don't have one, 
+        you can easily create it using <a href="https://www.duckdns.org/" target="_blank">DuckDNS &#x2197;</a>. Make sure you know your public IP address — 
+        simply search "What's my IP" on Google to find it. Next, create a valid subdomain to use for your Nextcloud instance.</p>
+      <p>You also need access to your router to forward port 80 and 443 to your server.</p>
+      <p>You should verify that the ports were successfully opened. To do this, create a temporary testing server listening on port 443. Open the terminal 
+        and run the following command. The server will automatically stop once you end the command with <kbd>Ctrl</kbd>+<kbd>c</kbd>:
+      </p>
+      <pre class="commands" id="comm-temporal-web-server"></pre>
+      <p>Open the following website and check port 443. It should automatically detect your public IP address, set the test to port 443, and verify 
+        whether the port is open.
+      </p>
+      <a href="https://www.canyouseeme.org/" target="_blank" rel="noopener noreferrer">can you see me</a>
+      <p>Now, go to your terminal, stop the previous command by pressing <kbd>Ctrl</kbd>+<kbd>C</kbd>, and run it again using port 80. Then, verify this port 
+        on the same website as before.</p>
+        <p>If port 80 appears closed, first verify your router's configuration. If everything is set up correctly and the port is indeed open, your 
+          Internet Service Provider (ISP) is likely blocking it. In this situation, HTTP requests won't even reach your router, so continue 
+          following this tutorial.
+        </p>
+        <p>If you can verify that both ports are opened, there's no need to configure your own SSL certificates. In that case, you can skip that step 
+          (SSL SETUP) and remove the two corresponding lines from the compose.yaml file, in the step (Compose) — these lines will be explained when you reach that part of the instructions.
+        </p>
+    </section>
+    <section class="configure-conf-files-subvolume">
+          <h2>Set up the Nextcloud project directory</h2>
+      <p>Create and prepare the directory where your Nextcloud project will live. This folder will store your Docker Compose file and any configuration 
+        related to your Nextcloud AIO deployment. Make sure the directory is located inside the dedicated subvolume you created earlier, so that your data 
+        and configuration persist independently from your operating system.</p>
+      <p>Create the directory for your Nextcloud configuration, then set the appropriate ownership and permissions.</p>
+      <pre class="commands" id="comm-mkdir-nextcloud"></pre>
+    </section>
+    <section class="ssl">
+      <h2>SSL Setup</h3>
+        <p>Proceed with the following steps only if your ISP is blocking Port 80 traffic.</p>
+        <p>Create a directory to store the ssl certificate</p>
+        <pre class="commands" id="comm-mkdir-acme"></pre>
+        <p>Install acme</p>
+        <pre class="commands" id="comm-install-acme"></pre>
+        <p>Register your email, you will not be promted to return any code from your email, it is just a local account in your server.</p>
+        <pre class="commands" id="comm-register-acme-email"></pre>
+        <p>Save your ACCOUNT_THUMBPRINT as you might need this credential in the future:</p>
+        <pre class="commands" id="comm-acme-credentials"></pre>
+        <p>Generate your SSL certificates</p>
+        <pre class="commands" id="comm-create-ssl-certificates"></pre>
+        <p>It will create a subdirectory such as /mnt/subvolumes/conf-files/Nextcloud-AIO/acme/YOUR-DOMAIN-NAME.duckdns.org_ecc/, where the certificates will 
+          be stored. A cron job will be set up to automatically renew these certificates. Each certificate is valid for 90 days, and renewal is scheduled to occur 
+          when the certificate has 30 days or less remaining before expiration. You need to edit this cron job to point to the directory where the certificates 
+          were created and add a command to restart the Nextcloud Apache container after renewal. This cron job runs daily at 18:35. Additionally, another cron 
+          job will be added using the @reboot option to ensure that, if the server is off at 18:35, the renewal process will run automatically the next time the 
+          server starts.
+        </p>
+        <p>Edit your crontab file; using nano as the editor is a good option.</p>
+        <pre class="commands" id="comm-edit-crontab"></pre>
+        <p>Change the owner and permissions:</p>
+        <pre class="commands" id="comm-certificate-permissions"></pre>
+    </section>
+    <section class="compose">
+      <h2>Compose file</h2>
+      <p>Now you need to download the official Nextcloud Docker Compose file applied to this tutorial. You can do this by running the following commands:</p>
+      <pre class="commands" id="comm-curl-docker-compose-file"></pre>
+      <p>In this file, four lines have been modified. The first two replace the SSL configuration volume files that your Nextcloud instance will use. 
+        Since you may want to redeploy this container in the future, these changes ensure that Nextcloud will continue to use your own SSL certificates 
+        even after the containers are restarted.
+      </p>
+      <p>If your ISP is not blocking ports 80 or 443 and both are correctly opened and accessible from the internet, then delete these lines, as you do not 
+        need to create your own SSL certificates and will use the ones provided by Nextcloud.
+      </p>
+      <pre class="commands" id="comm-SSL-lines"></pre>
+      <p>The third modified line is AIO_DISABLE_BACKUP_SECTION: true. This disables Nextcloud's built-in backup section, which is unnecessary in this setup 
+        because all backups will be managed separately using the Borg backup solution. By doing this, you avoid redundant or conflicting backup processes 
+        within Nextcloud.</p>
+      <p>The last modified line is NEXTCLOUD_DATADIR: /mnt/subvolumes/nextcloud. This ensures that your photos and videos are securely stored in the @nextcloud 
+        subvolume. By doing so, if you ever need to revert to a previous configuration, your important files will remain safe and will not be lost.</p>
+      <p>Be aware that if you named your volumes differently, you should adjust the paths accordingly. Also, using the data subdirectory inside @nextcloud 
+        is highly recommended by the Nextcloud developers.
+      </p>
+    </section>
+    <section class="Deployment">
+      <h2>Deployment</h2>
+      <p>Now it's time to deploy the container by running the following command:</p>
+      <pre class="commands" id="comm-docker-compose-yaml"></pre>
+      <p>In case you need to perform a fresh deployment, you should delete and clean the Docker containers as well as the remaining Docker volumes. 
+        Follow these steps:</p>
+        <pre class="commands" id="comm-nextcloud-reset"></pre>
+    </section>
+    <section class="configuracion-nextcloud">
+      <h2>Configuration</h2>
+      <p>Let's configure the Nextcloud instance, open your browser and type in your sever's ip followed by the port 8080</p>
+      <pre class="commands" id="comm-nextcloud-instance-master"></pre>
+      <p>You might see the following message: "Your connection is not private. Attackers might be trying to steal your information from 192.168.0.210 
+        (for example, passwords, messages, or credit cards). Learn more about this warning." If this appears, simply open the Advanced options and 
+        select "Proceed to 192.168.0.210 (unsafe)".</p>
+      <p>In this interface, you will be given a <strong>passphrase</strong> that you will need in the next step. Make sure to save it into a 
+        text file and then use it to log in.</p>
+        <pre class="commands" id="comm-passphrase"></pre>
+      <p>You will be prompted to enter the subdomain you created with DuckDNS.</p>
+      <p>Configure your Nextcloud instance with your preferred apps and your location. I personally do not need to install the Talk, Whiteboard and Imaginary apps.</p>
+      <p>After you have successfully set up your apps, it's time to "Download and start containers". This might take a couple of minutes.</p>
+      <p>When all your container are running successfully you will be given a password for your admin user, copy it and log in.</p>
+      <p>Apart from all your custom configurations, you should:</p>
+      <ul>
+        <li>Administration Settings -> Personal -> Security -> Change your password and enable TOTP</li>
+        <li>Apps -> Disabled Apps -> Externarl storage support (Enable)</li>
+        <li>Administration Settings -> Administration ->External storage -> set a directory name and location as: /mnt/subvolumes/nextcloud</li>
+        <li>(If you want, set optional extra configurations before this.) Accounts -> Create your users and groups.</li>
+      </ul>
+      <p>This is essentially the basic initial configuration. You can now skim through the additional settings to see if they meet your needs; 
+        otherwise, skip ahead to the Backup section.</p>
+    </section>
+    <section class="extra-configurations">
+      <h2>Optional Extra Configurations</h2>
+      <p>Nextcloud generates a large number of preview files by default, which can cause unnecessary wear on the storage device over time, especially on 
+        SSDs or limited-write media. These preview thumbnails are created for photos, videos, documents, and other file types so that the web interface and 
+        various apps can display quick visual summaries. However, if you do not rely on these previews—or if performance and storage longevity are more 
+        important to you—you can disable this behavior entirely, preventing any application from producing these auxiliary files. By removing or adjusting 
+        this configuration, Nextcloud will stop generating what are essentially redundant or “junk” preview files, thereby reducing disk usage, minimizing 
+        write operations, and keeping your storage system healthier and more efficient in the long run.</p>
+      <p><strong>Stop all the container from the YOUR-SERVER-IP:8080</strong></p>
+      <p>Edit the following directory:</p>
+      <pre class="commands" id="comm-config-php"></pre>
+      <p>Here there are some configs you should edit:</p>
+      <pre class="commands" id="comm-config-php-file"></pre>
+      <p>You can delete the previews of the files that are already in your instance:</p>
+      <pre class="commands" id="comm-delete-previews"></pre>
+      <p>Create an empty skeleton for new users without any default photo or document:</p>
+      <pre class="commands" id="comm-skeleton"></pre>
+
+    </section>
+    <section class="backup">
+      <h2>Backup</h2>
+      <p>We will be utilizing Nextcloud's internal backup system to safeguard our configuration settings, ensuring that the core elements of the platform, 
+        such as user accounts, passwords, and installed apps, are regularly backed up and protected. However, it's important to note that the actual data 
+        storage is located on a local external storage system. This storage, being outside the scope of the Nextcloud backup, won't be included in the automatic 
+        backup process. The reason behind this is to maintain the flexibility of managing the data independently from the platform's internal backup system. 
+        By separating the data storage, we can ensure that the backups focus on the configuration and user-related information, while the external storage can 
+        be handled with a customized backup solution, tailored to the specific needs of the data. This approach allows for greater control over both the system's 
+        settings and the data it houses, providing a more efficient and customizable backup strategy.</p>
+      <p>Go to YOUR-SERVER-IP:8080 and createa backup, save your backup encrypted password</p>
+      <pre class="commands" id="comm-save-backup-password"></pre>
+      <p>The backup directory is:</p>
+      <pre class="commands" id="comm-backup-dir"></pre>
+      <p>Now your nextcloud configuration is backed up properly.</p>
+    </section>
+  </main>
+  <script src="./scripts/0-sidebar-collapseButton.js"></script>
+  <script src="./scripts/5-nextcloud.js"></script>
+</body>
+
+</html>

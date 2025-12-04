@@ -1,0 +1,1 @@
+sudo find /var/lib/docker/volumes/nextcloud_aio_nextcloud/_data/core/skeleton/ -mindepth 1 -maxdepth 1 -exec rm -rfv {} +

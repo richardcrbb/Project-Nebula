@@ -1,0 +1,1 @@
+sudo nano /mnt/subvolumes/conf-files/Nextcloud-AIO/passphrase.txt

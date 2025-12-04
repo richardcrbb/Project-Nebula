@@ -1,0 +1,5 @@
+'preview_max_x' => 0,
+'preview_max_y' => 0,
+'jpeg_quality' => 1,
+'enabledPreviewProviders' => array ( ),
+'enable_previews' => false,
