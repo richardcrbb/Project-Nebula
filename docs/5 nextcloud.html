@@ -152,7 +152,29 @@
       <pre class="commands" id="comm-delete-previews"></pre>
       <p>Create an empty skeleton for new users without any default photo or document:</p>
       <pre class="commands" id="comm-skeleton"></pre>
-
+    </section>
+    <section class="copy-data">
+      <h2>Copy Files</h2>
+      <p>When you want to copy your files to your Nextcloud instance, you have two options. The first option is to use the nextcloud web interface. While this 
+        method is simple, it depends entirely on your internet speed, which limits the data transfer rate.
+      </p>
+      <p>The more efficient method is to transfer your data directly on the server into the @nextcloud subvolume. However, for this apporach you must stop 
+        the containers first, to avoid any conflicts during the process. Additionally, you need to set the correct file ownership and permissions once the transfer 
+        is complete. You can do this by running a single command at the end of a successful data transfer.
+      </p>
+      <p>After copying the data from the server to /mnt/subvolumes/nextcloud, make sure to set the correct permissions:</p>
+      <pre class="commands" id="comm-files-permissions"></pre>
+    </section>
+    <section class="duckdns-renew-ip">
+      <h2>Renew Your Public Ip</h2>
+      <p>Your DuckDNS domain must always point to your current public IP address. Since some ISPs change this public IP periodically, it's very important to 
+        update it on your domain every time it changes so that it always resolves correctly. To achieve this, you will use a script that sends your current IP 
+        address to DuckDNS. A cron job will run this script every 5 minutes and will generate a log file in case any error occurs during the process.
+      </p>
+      <p>Create a directory in the @conf-files subvolume, and inside this one create the script:</p>
+      <pre class="commands" id="comm-duckdns-script"></pre>
+      <p>Change its permission and create a cronjob:</p>
+      <pre class="commands" id="comm-duckdns-permissions-cronjob"></pre>
     </section>
     <section class="backup">
       <h2>Backup</h2>

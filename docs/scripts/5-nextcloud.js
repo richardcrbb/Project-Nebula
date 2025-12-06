@@ -292,3 +292,45 @@ fetch('./code/commands/58-backup-dir.sh', {cache: 'no-store'})
 })
 .catch(e => console.error(e));
 
+
+//. files permissions.
+
+fetch('./code/commands/59-files-permissions.sh', {cache: 'no-store'})
+.then(r => {
+    if (!r.ok) throw new Error('command files-permissions.sh not found' + r.status);
+    return r.text();
+})
+.then(texto =>{
+    const target = document.querySelector('#comm-files-permissions');
+    target.innerHTML= texto;
+})
+.catch(e => console.error(e));
+
+
+//. duckdns script.
+
+fetch('./code/commands/60-duckdns-script.sh', {cache: 'no-store'})
+.then(r => {
+    if (!r.ok) throw new Error('command duckdns-script.sh not found' + r.status);
+    return r.text();
+})
+.then(texto =>{
+    const target = document.querySelector('#comm-duckdns-script');
+    target.innerHTML= texto;
+})
+.catch(e => console.error(e));
+
+
+//. duckdns-permissions-cronjob
+
+fetch('./code/commands/61-duckdns-permissions-cronjob.sh', {cache: 'no-store'})
+.then(r => {
+    if (!r.ok) throw new Error('command duckdns-permissions-cronjob.sh not found' + r.status);
+    return r.text();
+})
+.then(texto =>{
+    const target = document.querySelector('#comm-duckdns-permissions-cronjob');
+    target.innerHTML= texto;
+})
+.catch(e => console.error(e));
+
