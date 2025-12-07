@@ -1,10 +1,18 @@
 sudo mkdir /mnt/subvolumes/conf-files/duckdns-script
-sudo nano /mnt/subvolumes/conf-files/duckdns-script/update-ip.sh
 
 #Create a log to store possible errors:
 
 sudo touch /mnt/subvolumes/conf-files/duckdns-script/error.log
 sudo chmod 664 /mnt/subvolumes/conf-files/duckdns-script/error.log
+
+
+
+
+#Create the script
+
+sudo nano /mnt/subvolumes/conf-files/duckdns-script/update-ip.sh
+
+
 
 #Write the following script with the correct token and keep ip= empty:
 

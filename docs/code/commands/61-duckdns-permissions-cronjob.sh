@@ -1,4 +1,4 @@
-chmod +x /mnt/subvolumes/conf-files/duckdns-script/update-ip.sh
+sudo chmod +x /mnt/subvolumes/conf-files/duckdns-script/update-ip.sh
 
 # Create the cronjob
 

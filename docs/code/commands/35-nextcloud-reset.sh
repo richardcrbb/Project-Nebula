@@ -22,3 +22,6 @@ sudo crontab -e
 
 #Delete Conf-files/Nextcloud
 sudo rm -r /mnt/subvolumes/conf-files/Nextcloud-AIO
+
+#Delete duckdns-renew-dir
+sudo rm -r /mnt/subvolumes/conf-files/duckdns-script
