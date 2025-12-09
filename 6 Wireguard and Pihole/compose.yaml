@@ -1,0 +1,58 @@
+services:
+
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SERVERURL=MYDOMAIN.duckdns.com #optional
+      - SERVERPORT=51820 #optional
+      - PEERS=1 #optional
+      - PEERDNS=10.0.0.3 #optional
+      - INTERNAL_SUBNET=10.13.13.0 #optional
+      - ALLOWEDIPS=0.0.0.0/0 #optional
+      - PERSISTENTKEEPALIVE_PEERS= #optional
+      - LOG_CONFS=true #optional
+    volumes:
+      - ./config:/config
+      - /lib/modules:/lib/modules #optional
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+    networks:
+      wg-pihole:
+        ipv4_address: 10.0.0.2
+
+  pihole:
+    image: pihole/pihole
+    container_name: pihole
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 880:80
+      - 4443:443
+    environment:
+      TZ: America/Bogota
+      FTLCONF_webserver_api_password: 'MY PASSWORD'
+      FTLCONF_dns_listeningMode: 'ALL'
+    volumes:
+      - './etc-pihole/:/etc/pihole/'
+    restart: unless-stopped
+    networks:
+      wg-pihole:
+        ipv4_address: 10.0.0.3
+
+networks:
+  wg-pihole:
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
+        - gateway: 10.0.0.1
+
