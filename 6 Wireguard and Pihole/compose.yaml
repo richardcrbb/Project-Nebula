@@ -43,7 +43,7 @@ services:
       FTLCONF_webserver_api_password: 'MY PASSWORD'
       FTLCONF_dns_listeningMode: 'ALL'
     volumes:
-      - './etc-pihole/:/etc/pihole/'
+      - /mnt/subvolumes/pihole/etc-pihole/:/etc/pihole/
     restart: unless-stopped
     networks:
       wg-pihole:
@@ -54,5 +54,4 @@ networks:
     ipam:
       config:
         - subnet: 10.0.0.0/24
-        - gateway: 10.0.0.1
 
