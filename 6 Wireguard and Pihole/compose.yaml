@@ -1,7 +1,7 @@
 services:
 
   wireguard:
-    image: lscr.io/linuxserver/wireguard:latest
+    image: lscr.io/linuxserver/wireguard
     container_name: wireguard
     cap_add:
       - NET_ADMIN
@@ -9,10 +9,10 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/Bogota
       - SERVERURL=MYDOMAIN.duckdns.com #optional
       - SERVERPORT=51820 #optional
-      - PEERS=1 #optional
+      - PEERS=3 #optional
       - PEERDNS=10.0.0.3 #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional
       - ALLOWEDIPS=0.0.0.0/0 #optional
