@@ -18,19 +18,74 @@
   <main class="main-content">
    <section class="intro">
     <h1>WIREGUARD</h1>
+    <div class="Banner">
+        <img src="./images/Imagen6.png" alt="Banner" width="640" height="360">
+    </div>
     <p>In this tutorial, you'll learn how to set up a WireGuard VPN server using Docker Compose, providing a secure and efficient way to access your network 
-        remotely. WireGuard is a modern VPN protocol known for its simplicity, performance, and ease of use. By leveraging Docker Compose, you'll automate the 
-        creation and management of containers, making it easier to deploy and scale your VPN server. Throughout this guide, I'll walk you through the 
-        process of configuring the WireGuard server and adding a specific number of clients in a straightforward manner. By the end of the tutorial, you'll 
-        have a fully functional VPN server to securely connect from anywhere, whether it's your home, office, or on the go.</p>
-        <p>Let's get started!</p>
+        remotely. WireGuard is a modern VPN protocol known for its simplicity, performance, and ease of use.</p>
+    <p>Additionally, we will integrate Pi-hole into the same Docker Compose stack, allowing you to deploy a powerful network-wide DNS and ad-blocking solution 
+        alongside your VPN. By doing this, Pi-hole can serve as the DNS resolver for all devices connected through the VPN, as well as for the devices on your 
+        local LAN—centralizing DNS management and enhancing privacy across your entire network.</p>
+    <p>Using Docker Compose, you'll automate the creation and management of both containers, making deployment simple, reproducible, and easy to maintain. 
+        Throughout this guide, I'll walk you step-by-step through configuring the WireGuard server, adding clients, and integrating Pi-hole without complexity.</p>
+    <p>By the end of the tutorial, you'll have a fully functional VPN server with network-wide DNS filtering, ready to use from anywhere—whether 
+        you're at home, at the office, or on the go.</p>
+    <p>Let's get started!</p>
+   </section>
+   <section class="portforwading">
+    <h2>Port Forwarding</h2>
+    <p>The first step is to open port 51820 on your router and forward it to your server's IP address. This port will be used by WireGuard, and opening it 
+        is essential to allow external devices to establish a secure connection with your server.</p>
+    <p>You should verify that the port was successfully opened. To do this, create a temporary testing server listening on port 51820. Open the terminal 
+    and run the following command replacing 443 for 51820. The server will automatically stop once you end the command with <kbd>Ctrl</kbd>+<kbd>c</kbd>:
+    </p>
+    <pre class="commands" id="comm-temporal-web-server"></pre>
+    <p>Open the following website and check port 51820. It should automatically detect your public IP address, set the test to port 51820, and verify 
+    whether the port is open.
+    </p>
+    <a href="https://www.canyouseeme.org/" target="_blank" rel="noopener noreferrer">can you see me</a>
+    <p>Now, go to your terminal, stop the previous command by pressing <kbd>Ctrl</kbd>+<kbd>C</kbd>.</p>
+   </section>
+   <section class="stub-listener">
+    <h2>Stub Listener</h2>
+    <p>As you need to have the port 53 available for your dns server pihole, you need to deactivate the stub listener.</p>
+    <pre class="commands" id="comm-stub-listener"></pre>
    </section>
    <section class="docker-compose-file">
     <h2>Docker Compose</h2>
+    <p>Download the compose.yaml file to your @wireguard subvolume.</p>
+    <div><pre class="commands" id="comm-download-compose"></pre></div>
+    <p>Edit your compose.yaml file to include your domain, timezone and the peers that will connect to your server in the wireguard service, and in 
+        pihole set a password for your instance. You can check it in 
+        <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="noopener noreferrer">Timezones</a>
+    </p>
+    <p>Then deploy your stack with:</p>
+    <pre class="commands" id="comm-deploy-stack"></pre>
+   </section>
+   <section class="setdns">
+    <h2>Set DNS</h2>
+    <p>Set pihole as your dns. Make sure your only file is 50-cloud-init.yaml or change the command for your yaml file.</p>
+    <pre class="commands" id="comm-set-dns"></pre>
+    <p>Add your hostname to the hosts list:</p>
+    <pre class="commands" id="comm-hosts"></pre>
+   </section>
+   <section class="conf">
+    <H2>Configuration</H2>
+    <p>Now you can add the lists of known advertisements ip's from the pihole web interface</p>
+    <pre class="commands">#Servers-ip:880</pre>
+    <p>Add the following aggresive list:</p>
+    <pre class="commands">https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/ultimate.txt</pre>
+    <p>Or find a medium list in:</p>
+    <a href="https://github.com/hagezi/dns-blocklists" target="_blank" rel="noopener noreferrer">Hagezi Github</a>
+    <p>Now refresh your pihole configuration with:</p>
+    <pre class="commands">Tools -> Update Gravity -> Update.</pre>
+    <P>For Wireguard you can download the wireguard client app and connect to your server via QR Code, you can see your peer QR code to connect as:</P>
+    <pre class="commands">sudo docker container logs wireguard</pre>
+
    </section>
   </main>
   <script src="./scripts/0-sidebar-collapseButton.js"></script>
-  <script src="./scripts/5-nextcloud.js"></script>
+  <script src="./scripts/6-wg-pihole.js"></script>
 </body>
 
 </html>

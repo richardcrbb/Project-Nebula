@@ -1,0 +1,1 @@
+sudo docker compose -f /mnt/subvolumes/wireguard/compose.yaml up -d
