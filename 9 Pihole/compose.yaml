@@ -1,0 +1,18 @@
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole
+    networks:
+      tailnet-vpn:
+        ipv4_address: 10.10.10.2
+    environment:
+      TZ: ${TZ}
+      FTLCONF_webserver_api_password: '${FTLCONF_webserver_api_password}'
+      FTLCONF_dns_listeningMode: 'ALL'
+    volumes:
+      - ./etc/pihole:/etc/pihole
+    restart: unless-stopped
+
+networks:
+  tailnet-vpn:
+    external: true
