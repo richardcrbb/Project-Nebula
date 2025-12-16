@@ -1,0 +1,27 @@
+services:
+  tailscale:
+    image: tailscale/tailscale
+    container_name: tailscale
+    networks:
+      tailnet-vpn:
+        ipv4_address: 10.10.10.3
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      TS_HOSTNAME: ${HOSTNAME}
+      TS_AUTHKEY: ${AUTHKEY}
+      TS_STATE_DIR: "/var/lib/tailscale"
+      TS_USERSPACE: "false"
+      TS_ACCEPT_DNS: "true"
+      TS_ROUTES: "10.10.10.0/24"
+    restart: unless-stopped
+volumes:
+  tailscale-state:
+networks:
+  tailnet-vpn:
+    external: true
