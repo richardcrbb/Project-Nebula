@@ -16,8 +16,8 @@ services:
     depends_on:
       - nextcloud-db
     networks:
-    tailnet-vpn:
-      ipv4_address: 10.10.10.4
+      tailnet-vpn:
+        ipv4_address: 10.10.10.4
     restart: unless-stopped
     
   nextcloud-db:
