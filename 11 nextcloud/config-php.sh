@@ -5,7 +5,7 @@
 NEXTCLOUD_CONTAINER="nextcloud"
 
 # Log file in the same directory as the script
-LOG_FILE="./nextcloud_config_error.log"
+LOG_FILE="/mnt/subvolumes/conf-files/nextcloud/nextcloud_config_error.log"
 
 # Function to run occ commands inside the container and log errors
 occ() {
@@ -16,7 +16,7 @@ occ() {
 }
 
 #Load variables from .env specially ${DOMAIN}
-export $(grep -v '^#' .env | xargs)
+export $(grep -v '^#' /mnt/subvolumes/conf-files/nextcloud/.env | xargs)
 
 echo "===== Nextcloud ====="
 
