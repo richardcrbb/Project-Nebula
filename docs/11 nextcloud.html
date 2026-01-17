@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Nebula</title>
+  <link rel="icon" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  </head>
+
+<body>
+  <div id="sidebar"></div>
+  <main class="main-content">
+    <section class="intro-nextcloud">
+      <h1>NEXTCLOUD</h1>
+      <div class="Banner">
+        <img src="./images/Imagen5.png" alt="Banner" width="640" height="360">        
+      </div>
+      <p>In this tutorial, you'll learn how to install Nextcloud using a Docker Compose file configured to store its data inside a dedicated 
+          Btrfs subvolume located on a subvolume in a separate partition of the same device. If you haven't completed the setup of those subvolumes yet, make sure to watch 
+          the previous tutorial (Important Data) linked in the sidebar of this website.</p>
+    </section>
+    <section class="pre-requisites">
+      <h2>Mandatory</h2>
+      <p>The requirement to run this instance is to follow the entire project guide, as this help you create the subvolumes we are going to use and the subnet we 
+        created using Tailscale, this allowed us to join our LAN and docker's subnet and access it from anywhere in the world.
+      </p>
+    </section>
+    <section class="transfer-data">
+        <h2>Transfer Your Data</h2>
+        <p>If you followed this entire guide, you must have a subvolume @nextcloud in your server, and a PC with a directory where your important data lays and 
+            connected to the same lan, copy your important data (Photos, Files, etc.) to the subvolume mount point of your server directly from your PC client 
+            using the scp tool.</p>
+        <p>From your server, change the permission of the subvolume directory:</p>
+        <pre class="commands">sudo chown -R 1000:1000 /mnt/subvolumes/nextcloud</pre>
+        <p>From your client, not your server, update with your info and run:</p>
+        <pre class="commands" id="comm-transfer-data"></pre>
+        <p>Keep in mind that the tailnet-vpn Docker network connects the containers within the same subnet, but it operates in isolation. This means you cannot 
+            access your server directly from within the container. The container is isolated from your host machine. To transfer data or communicate with the 
+            server, you need to use the LAN IP address of the host machine. Essentially, your PC must be on the same local network as the server in order to 
+            transfer data.
+        </p>
+        <p>Or you can install another node in your Server O.S. thus you can communicate from any node in your tailnet directly to the server, not a docker container.</p>
+    </section>
+    <section class="configure-conf-files-subvolume">
+        <h2>Set up the Nextcloud project directory</h2>
+        <p>Create and prepare the directory where your Nextcloud project will live. This folder will store your Docker Compose file and any configuration 
+            related to your Nextcloud deployment. Make sure the directory is located inside the dedicated subvolume you created earlier, so that your data 
+            and configuration persist independently from your operating system.</p>
+            <p>Create the directory for your Nextcloud configuration, then set the appropriate ownership and permissions for the @nextcloud subvolume.</p>
+            <pre class="commands" id="comm-nextcloud-compose-dir"></pre>
+            <pre class="commands" id="comm-permissions"></pre>
+    </section>
+    <section class="domain">
+        <h2>Set Your Domain</h2>
+        <p>With the help of your Pi-hole service, set a custom domain name to easily access your Nextcloud service, pointing to the next available IP in your 
+            Tailnet VPN subnet, which is <strong>10.10.10.4</strong>. For the purposes of this tutorial, we will use <strong>nextcloud.nube</strong>, but you 
+            can choose any domain you prefer. If you decide to change this port—which is not recommended—make sure to update the compose.yaml file accordingly.</p>
+    </section>
+    <section class="compose">
+      <h2>Compose file</h2>
+      <p>Now you need to download the Nextcloud Docker Compose file used in this tutorial, along with the .env file that contains your preferred values and a 
+        script to configure some PHP settings. You can do this by running the following commands:</p>
+      <pre class="commands" id="comm-curl-docker-compose-file"></pre>
+      <p>Edit your .env file to set:</p>
+      <pre class="commands" id="comm-nano-env"></pre>
+      <li>DOMAIN</li>
+      <li>NEXTCLOUD_ADMIN_USER</li>
+      <li>NEXTCLOUD_ADMIN_PASSWORD</li>
+      <li>TZ</li>
+      <p>Keep the other Postgres variables like that, as you won't need to change anything in the database. These other variables are in this file for 
+        your information.</p>
+    </section>
+    <section class="Deployment">
+      <h2>Deployment</h2>
+      <p>Now it's time to deploy the container by running the following command:</p>
+      <pre class="commands" id="comm-docker-compose-yaml"></pre>
+      <p>Previews in nextcloud could increase the junk files size over time, if you don't need to have previews of your photos and files I recommend using the full extent of the 
+        following script, but if previews are really important to you, then delete the previews settings in the script using nano.</p>
+      <p>This script also creates an empty skeleton for all new users except the admin. If you want to customize it, you can replace the empty skeleton with a directory 
+        containing the files you want new users to see. Personally, I prefer an empty skeleton so new users can set up their workspace however they like.</p>
+      <p>Nextcloud generates a large number of preview files by default, which can cause unnecessary wear on the storage device over time, especially on 
+            SSDs or limited-write media. These preview thumbnails are created for photos, videos, documents, and other file types so that the web interface and 
+            various apps can display quick visual summaries. However, if you do not rely on these previews—or if performance and storage longevity are more 
+            important to you—you can disable this behavior entirely, preventing any application from producing these auxiliary files. By removing or adjusting 
+            this configuration, Nextcloud will stop generating what are essentially redundant or “junk” preview files, thereby reducing disk usage, minimizing 
+            write operations, and keeping your storage system healthier and more efficient in the long run.</p>
+      <p>Here there are the configs you should remove if you DO want to keep previews.:</p>
+      <pre class="commands" id="comm-config-php-file"></pre>
+      <pre class="commands" id="comm-nano-script"></pre>
+      <p>After configuring the script to match your preferences, it's time to make it executable by changing its permissions and execute the script.</p>
+      <pre class="commands" id="comm-script-x"></pre>
+    </section>
+    <section class="configuracion-nextcloud">
+      <h2>Configuration</h2>
+      <p>Let's configure the Nextcloud instance, open your browser and type in your nextcloud's domain followed by "/", just the first time so your browser remembers your 
+        domain.
+      </p>
+      <p>Type your credentials you set in your .env file, if you forgot them, just run:</p>
+      <pre class="commands">cat /mnt/subvolumes/conf-files/nextcloud/.env</pre>
+      <p>Apart from all your custom configurations, you should:</p>
+      <ul>
+          <li>Apps -> Disabled Apps -> Two-Factor TOTP Provider (Enable)</li>
+          <li>Apps -> Disabled Apps -> Externarl storage support (Enable)</li>
+          <li>Personal Settings -> Security -> enable TOTP (You can use your google Authenticator App, scan the QR code.)</li>
+        <li>Administration Settings -> Administration ->External storage -> set a directory name as you prefer, and location as: /external</li>
+        <li>(If you want, set optional extra configurations before this.) Accounts -> Create your users and groups.</li>
+      </ul>
+      <p>This is essentially the basic initial configuration. You can now skim through the additional settings.</p>
+    </section>
+    <section class="final-warning">
+        <h2>WARNING</h2>
+        <p>In your Nextcloud web interface, make sure to save all important information in the external storage directory you configured earlier, as it is mounted 
+            to your @nextcloud subvolume. This ensures your data remains persistent even if containers or volumes are deleted. You can always redeploy from a fresh 
+            installation by following these instructions, and your data will still be intact. Later in this project, we will cover a full backup solution for the 
+            entire SD3 partition. Once again, remember to store your data in your external storage directory.
+        </p>
+    </section>
+  </main>
+  <script src="./scripts/0-sidebar-collapseButton.js"></script>
+  <script src="./scripts/11-nextcloud.js"></script>
+</body>
+
+</html>

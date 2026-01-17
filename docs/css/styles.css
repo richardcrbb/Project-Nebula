@@ -1,4 +1,4 @@
-/* estilos.css */
+/*!                                                                    estilos.css */
 body {
   background-color: #28282B;
   /* background-color: #36454F; */
@@ -73,10 +73,12 @@ a:visited {
 }
 
 
-/* Sidebar */
+/*!                                                                      Sidebar */
 .sidebar {
   width: 220px;
-  height: 100vh;
+  height: 94vh;
+  overflow-y: auto;
+  scrollbar-width: none;
   background-color: #343434;
   border-radius: 8px;
   color: #EADDCA;
@@ -157,7 +159,18 @@ a:visited {
   flex: 1;
 }
 
+.sidebar .bartitle.centrado {
+  color:goldenrod;
+  display: block;
+  text-align: center;
+  font-size: x-large;
+}
+
 .sidebar.collapsed .linklabel {
+  display: none;
+}
+
+.sidebar.collapsed .bartitle {
   display: none;
 }
 
@@ -166,7 +179,7 @@ a:visited {
   padding: 5px;
 }
 
-/* Contenido principal */
+/*!                                                                        Contenido principal */
 .main-content {
   margin-left: 280px;
   padding: 20px;
@@ -187,7 +200,7 @@ body.sidebar-collapsed .main-content {
   font-family: monospace;
   border: 1px solid #EADDCA;
 }
-/* Responsive: móvil */
+/*!                                                                             Responsive: móvil */
 @media (max-width: 768px) {
   .menu-icon {
     display: block;

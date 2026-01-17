@@ -26,13 +26,22 @@
   <ul>
     <li>Nextcloud for private file storage and synchronization</li>
 
-    <li>WireGuard VPN for secure remote access</li>
+    <li>WireGuard based VPN for secure remote access</li>
 
     <li>Pi-hole for network-wide ad blocking</li>
 
     <li>Additional tools and services for automation, monitoring, and backups</li>
   </ul>
-  <p>Designed for reliability, low power consumption, and easy recovery, this setup provides a compact yet powerful home server solution. It’s ideal for anyone who wants full control over their data, secure connectivity, and a modular infrastructure that can grow with new containers and services over time.</p>
+  <p>Designed for reliability, low power consumption, and easy recovery, this setup provides a compact yet powerful home server solution. 
+    It's ideal for anyone who wants full control over their data, secure connectivity, and a modular infrastructure that can grow with new containers 
+    and services over time.</p>
+  <p>This project will be developed following two different approaches. The first branch focuses on a traditional setup with direct access to the router, 
+    exposing LAN services to the internet through port forwarding, which requires a dedicated public IP address assigned exclusively to the router. Nowadays, 
+    this setup is increasingly uncommon, as many ISPs widely implement CGNAT to reduce costs and optimize address usage, often charging extra for a dedicated 
+    public IP. The second branch proposes an alternative solution based on a virtual private network using Tailscale, which creates secure, encrypted tunnels 
+    between devices and relies on a coordination server to help connect all nodes within the virtual network. This approach is highly secure because it is built 
+    on WireGuard, and it is also cost-effective, offering a free tier that supports up to 100 devices and 3 user accounts.</p>
+
   <div>
     <h2 id="image-resources">Image Resources</h2>
       <ul>

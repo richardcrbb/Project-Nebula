@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Nebula</title>
+  <link rel="icon" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  </head>
+
+<body>
+  <div id="sidebar"></div>
+  <main class="main-content">
+    <section class="intro backup">
+      <h1>Borg-Backup</h1>
+      <p>Move your data to other physical storage device</p>
+      <p>Create a borg-repo in the backup device:</p>
+      <pre class="commands">
+sudo borg init \
+  --encryption=repokey-blake2 \
+  /mnt/hdd2tb/borg-repo
+      </pre>
+      <p>Save the key:</p>
+      <pre class="commands">sudo borg key export /mnt/hdd2tb/borg-repo ~/borg-key-rescue.key</pre>
+      <p>Make the first backup:</p>
+      <pre class="commands">sudo borg create \
+  --stats \
+  --progress \
+  --compression lz4 \
+  /mnt/hdd2tb/borg-repo::init-$(date +%Y-%m-%d) \
+  /mnt/rescue</pre>
+      <p>Check the integrity:</p>
+      <pre class="commands">sudo borg check /mnt/hdd2tb/borg-repo</pre>
+  </main>
+  <script src="./scripts/0-sidebar-collapseButton.js"></script>
+  <script src="./scripts/11-nextcloud.js"></script>
+</body>
+
+</html>

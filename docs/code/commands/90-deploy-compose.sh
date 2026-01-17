@@ -1,0 +1,1 @@
+sudo docker compose -f /mnt/subvolumes/conf-files/nextcloud/compose.yaml up -d

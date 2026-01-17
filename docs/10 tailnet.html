@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Nebula</title>
+  <link rel="icon" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+  <div id="sidebar"></div>
+  <main class="main-content">
+    <section class="intro">
+      <h1>TAILNET</h1>
+      <div class="Banner">
+        <img src="./images/tailnet.png" alt="Banner" width="640" height="360">
+      </div>
+      <p>In this tutorial, we will set up a virtual network to connect all of our devices, as well as the containers on our server, in a controlled and secure way. 
+        We will use Tailscale, which provides servers on the internet that help connect devices even behind a CGNAT by creating UDP hole-punching tunnels or 
+        relaying traffic when necessary.</p>
+      <p>All communication within this virtual network is fully encrypted end-to-end, ensuring that no external server has the ability to read or inspect 
+        our traffic. This makes the entire setup both extremely easy to deploy and highly secure.</p>
+      <p>Tailscale also allows us to configure a router node between our server and its containers, enabling seamless communication. As a result, you can 
+        access services like Pi-hole directly from your phone as if it were a real device on your local network, or connect to any containerized service 
+        without any issues.</p>
+    </section>
+    <section class="tailscale-account">
+      <h2>Tailscale Account</h2>
+      <p>You need to create an account in the following link: <a href="https://tailscale.com/" target="_blank" rel="noopener noreferrer">TAILSACLE &#x2197;</a></p>
+      <p>For now, just fill out the initial questionnaire. You can skip adding devices and everything else.</p>
+      <p>We will come back to this Tailscale web interface in order to create a key to access from a Tailscale containerized instance(A NODE in your tailnet) 
+        later.</p>
+    </section>
+    <section class="deploy tailscale">
+      <h2>Project Directory</h2>
+      <p>Connect to your server via ssh.</p>
+      <p>Create your project's directory inside your @conf-files subvolume:</p>
+      <pre class="commands" id="comm-tailscale-dir"></pre>
+      <p>Download the compose.yaml file and your .env file runnin the following command:</p>
+      <pre class="commands" id="comm-tailscale-download-compose"></pre>
+      <p>Go back to the tailnet web interface and create a key for the node that will be deployed in your server, you can do that by going to:</p>
+      <p><strong> Settings => Personal Settings | Keys => Generate auth key...</strong></p>
+      <p>Add a description e.g. YOUR-SERVER-HOSTNAME, do not make it resuable and keep the default expiry date as you will deactivate expiry date later for 
+        this key.</p>
+      <p>click on generate and do not close the overlay panel yet.</p>
+      <p>Update your .env file with the generated key from the web interface and set a name for this node e.g. YOUR-SERVER-HOSTNAME.</p>
+      <pre class="commands" id="comm-adjust-tailscale-env"></pre>
+      <p>To check your compose.yaml file before deployment, run:</p>
+      <p><strong>cat compose.yaml</strong></p>
+      <p>Deploy your project:</p>
+      <pre class="commands" id="comm-deploy-your-project"></pre>
+    </section>
+    <section class="tailscale-setup">
+      <h2>Tailnet Setup</h2>
+      <p>Go back to your Tailscale web interface and allow the routes advertised by your node:</p>
+      <p><strong>Machines => Your node settings (Meatball Menu) => Edit route settings... => check the box | subnet 10.10.10.0/24 => Save</strong></p>
+      <p>If you want to disable expiry date on your generated key:</p>
+      <p><strong>Machines => Your node settings (Meatball Menu) => Disable key expiry</strong></p>
+      <p>Add your pihole service as the tailnet DNS</p>
+      <p><strong>DNS => NameServers | Add nameserver => Custom... => (type) 10.10.10.2 => Save</strong></p>
+      <p>Allow Override DNS server</p>
+      <p><strong>Slide override DNS server (on) </strong></p>
+    </section>
+    <section class="add-nodes">
+      <h2>Add Nodes To Your Tailnet</h2>
+      <p>Now you can start adding more nodes to your tailnet, download the Tailscale app in your device and login with your Tailscale credentials.</p>
+      <h2 style="text-align: left;">Ubuntu</h2>
+      <p>To add a linux pc (ubuntu) as a node:</p>
+      <li>Create another auth key</li>
+      <p>Run the following command:</p>
+      <pre class="commands" id="comm-install-tailscale-linux-client"></pre>
+      <p>To start the connection, update the following command with your auth key and run:</p>
+      <pre class="commands" id="comm-tailscale-run-client"></pre>
+      <p>If you want to check your connection to your Tailnet:</p>
+      <pre class="commands" id="comm-check-tailnet"></pre>
+      <p>If you want to disable expiry date on your generated key:</p>
+      <p><strong>Machines => Your node settings (Meatball Menu) => Disable key expiry</strong></p>
+      <p>If your server is turned off you need to disconnect your device from the tailnet in order to resolve domains properly:</p>
+      <pre class="commands" id="comm-tailnet-down"></pre>
+      <h2 style="text-align: left;">Phone and TV</h2>
+      <p>To connect your phone and tv to your tailnet download the Tailscale app from your store.</p>
+      <p>You can and login using your Tailscale credentials or the recommended way is generating an auth key, help yourself with whatsapp 
+        to send this key from your pc to your phone or type it in:</p>
+      <p><strong>Settings Gear => Accounts => (Kebab Menu) => Use an auth key </strong></p>
+      <p>Set your node name in:</p>
+      <p><strong>Machines => Your node settings (Meatball Menu) => Edit machine name => Slide Auto-Generate | Set a name => Update</strong></p>
+      <p>If you want to disable expiry date on your generated key:</p>
+      <p><strong>Machines => Your node settings (Meatball Menu) => Disable key expiry</strong></p>
+      <p>Make sure your phone is using your Tailscale DNS (pihole) go to your phone Tailscale interface (app) in:</p>
+      <p><strong>Settings => DNS settings => make sure "Use Tailscale DNS is on and Resolvers is 10.10.10.2"</strong></p>
+      <p>If your server is turned off you need to disconnect your device from the tailnet in order to resolve domains properly:</p>
+      <p>Go to your phone Tailscale interface (app) and turn off the connection.</p>
+    </section>
+    <section class="warning">
+      <h2>WARNING</h2>
+      <p>If your server is turned off you need to disconnect your device from the tailnet in order to resolve domains properly:</p>
+      <p>Go to your phone Tailscale interface (app) and turn off the connection.</p>
+    </section>
+    <section class="continue-with-pihole">
+      <h2>Resume Pi-hole SetUp</h2>
+      <p>Now you can continue setting up Pi-hole, add your custom domain names for your local services, and access them seamlessly</p>
+    </section>
+  </main>
+  <script src="./scripts/0-sidebar-collapseButton.js"></script>
+  <script src="./scripts/10-tailnet.js"></script>
+</body>
+
+</html>

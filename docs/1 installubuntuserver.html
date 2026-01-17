@@ -113,8 +113,8 @@
       <!-- <p class="commands" id="comm-gdisk"></p> -->
       <p>The first one is to unmount all the partitions that might be mounted, if there is one or any of them not mounted you will
         receive a warning but don't pay attetion to it, the second one is the package you will use to create the gpt partition
-        table and create the partitions, if you don't have it you can install it using "sudo apt update && sudo apt install 
-        gdisk", now inside of gdisk type the following options:</p>
+        table and create the partitions, if you don't have it you can install it using <strong>"sudo apt update && sudo apt install 
+        gdisk"</strong>, now inside of gdisk type the following options:</p>
       <ul>
         <li> <kbd>o</kbd> "Letter o"</li>
         <li>"This option deletes all partitions and creates a new protective MBR. Proceed?</li>
@@ -235,6 +235,12 @@
         time, the system will prompt you to change this password, so you won't be leaving it stored in plain text in 
         this file.
       </p>
+      <p>Unmount the device and virtual image, replace the loop number:</p>
+      <pre class="commands">sudo umount /mnt/image/system-boot/
+sudo umount /mnt/image/writable/
+sudo umount /mnt/rpidev/system-boot/
+sudo umount /mnt/rpidev/writable/
+sudo losetup -d /dev/loop#</pre>
     </section>
     <section class="start-rpi">
       <p>Now you are ready to connect the storage device to the usb port in the Rpi, plug in an ethernet 

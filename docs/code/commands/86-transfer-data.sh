@@ -1,0 +1,3 @@
+sudo scp -i /YOUR-SSH-KEY-LOCATION \
+YOUR-DATA-DIR \
+YOUR-SERVERS-USER@YOUR-SERVERS-LAN-IP:/mnt/subvolumes/nextcloud

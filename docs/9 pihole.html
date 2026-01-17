@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Nebula</title>
+  <link rel="icon" href="./images/favicon.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+  <div id="sidebar"></div>
+  <main class="main-content">
+    <section class="intro">
+        <h1>PI-HOLE</h1>
+        <p>In this tutorial, we will set up a fully functional Pi-hole service using a Docker container. Pi-hole is a network-level DNS server that 
+          resolves domain names to IP addresses, similar to an address directory. One of its main features is the ability to block ads: you can add 
+          lists of known ad-serving domains, and Pi-hole will redirect requests to these domains to a non-routable IP (0.0.0.0), effectively preventing 
+          connections. Additionally, Pi-hole allows you to define custom DNS entries for your containers or devices, ensuring they resolve to specific 
+          IPs within your network. Essentially, it works as both an ad blocker and a customizable DNS server for your infrastructure.</p>
+    </section>
+    <section class="tutorial">
+      <p>Let's start creating your project directory in your @conf-files subvolume</p>
+      <pre class="commands" id="comm-pihole-dir"></pre>
+      <p>Download the compose.yaml file and your .env file runnin the following command:</p>
+      <pre class="commands" id="comm-pihole-download-compose"></pre>
+      <p>Adjust your .env file that contains the password of the web interface for pihole and the timezone for the logs.</p>
+      <pre class="commands" id="comm-adjust-pihole-env"></pre>
+      <p>To check your compose.yaml file before deployment, run:</p>
+      <p><strong>cat compose.yaml</strong></p>
+      <p>Deploy your project:</p>
+      <pre class="commands" id="comm-deploy-your-project"></pre>
+    </section>
+    <section class="tailnet">
+      <h2>Tailnet Setup</h2>
+      <p>To access your Pi-hole web interface and manage your Pi-hole instance, first set up your Tailnet, then return for Part 2 of the Pi-hole guide.</p>
+    </section>
+    <section class="setting-up-pihole">
+      <h2>Pi-hole Part 2</h2>
+      <p>Once your tailnet is properly configured and all nodes have been successfully added, you will be able to access your Docker containers 
+        from any device connected to the tailnet. Pi-hole was the first service deployed. It was assigned the fixed IP address 
+        10.10.10.2, unless you have modified this value in the compose.yaml file. The Pi-hole web interface password is defined in the .env file and 
+        defaults to admin. At this point, you can log in to the Pi-hole web interface by opening a web browser <strong>
+          on any device that is successfully connected to the tailnet
+        </strong> and navigating to <a href="http://10.10.10.2/admin/login" target="_blank" rel="noopener noreferrer">http://10.10.10.2/admin/login
+         &#8599;</a>. This IP address belongs to the tailnet-vpn Docker network and provides direct access to the Pi-hole management dashboard.</p>
+      <p>By default your pihole is using a blocking list (https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts), but you can add more lists of 
+        known ips serving ads servers or any other content you really don't want to access, here you can add a more aggressive list to block many more websites, go to <strong>Lists</strong> in the left side bar and add the 
+        following link that cointains a list of known ips serving ads:</p>
+      <pre class="commands">https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/ultimate.txt</pre>
+      <p>Then click on <strong>add blocklist</strong></p>
+      <p>Or find a medium (less aggressive) list in:</p>
+      <a href="https://github.com/hagezi/dns-blocklists" target="_blank" rel="noopener noreferrer">Hagezi Github</a>
+      <p>Now refresh your pihole configuration with:</p>
+      <pre class="commands">Tools -> Update Gravity -> Update.</pre>
+    </section>
+    <section class="custom-domains">
+      <h2>Custom Domain Names</h2>
+      <p>You can create custom domain names for your services to simplify and streamline access. These domains can point directly to the IP address of a 
+        container within the tailscale-vpn Docker network or to any device in your tailnet. Since all nodes and services are connected through the tailnet, 
+        everything remains securely reachable from any authorized device.</p>
+      <p>To create a custom domain for a service you go to:</p>
+      <p><strong>Settings => Local DNS Records</strong></p>
+      <p>In this section, you can create a custom domain name by specifying your domain and the IP address of the target service or device.</p>
+      <p>Let's create the domain <strong>pihole.nube</strong> for the ip address <strong>10.10.10.2</strong></p>
+      <p>Log out from your pihole and open a new browser tab using:</p>
+      <p><strong>pihole.nube/</strong></p>
+      <p>Remember to include a trailing “/” at the end of the domain the first time you access it in your browser. This helps the browser recognize 
+        it as a valid domain rather than a search query. After the initial visit, you can access the domain normally without the “/”.
+      </p>
+      <p>Have in mind that specifically for Pi-hole, it serves it's interface in the route /admin/ so you can add it when typing your domain in your browser. 
+        Do not add 10.10.10.2/admin/ directly, as this is not a valid ip, just type it in the web browser:
+      </p>
+      <p><strong>pihole.nube/admin/</strong></p>
+      <p>For other services you normally would do:</p>
+      <p><strong>YOUR-CUSTOM-DOMAIN-/</strong></p>
+    </section>
+  </main>
+  <script src="./scripts/0-sidebar-collapseButton.js"></script>
+  <script src="./scripts/9-pihole.js"></script>
+</body>
+
+</html>
